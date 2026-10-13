@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DuoDaily - Học Tiếng Anh 15 Phút Mỗi Ngày</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #58cc02;
+      --primary-hover: #46a302;
+      --primary-shadow: #58a700;
+      --blue: #1cb0f6;
+      --blue-shadow: #1899d6;
+      --orange: #ff9600;
+      --orange-shadow: #e68700;
+      --red: #ff4b4b;
+      --red-shadow: #ea2b2b;
+      --gray-bg: #f7f7f7;
+      --border-color: #e5e5e5;
+      --text: #4b4b4b;
+      --text-muted: #afafaf;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+      user-select: none;
+    }
+    body {
+      background: #ffffff;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    /* Header */
+    header {
+      border-bottom: 2px solid var(--border-color);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--primary);
+    }
+    .stats {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .streak { color: var(--orange); }
+    .xp { color: var(--blue); }
+    .hearts { color: var(--red); }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 650px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 24px;
+    }
+    .progress-bar {
+      flex: 1;
+      height: 16px;
+      background: var(--border-color);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      border-radius: 20px;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Lesson Card */
+    .lesson-box {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .skill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      align-self: flex-start;
+    }
+    .tag-listening { background: #e5f6fd; color: var(--blue); }
+    .tag-reading { background: #eefee2; color: var(--primary); }
+    .tag-writing { background: #fff4e5; color: var(--orange); }
+    .tag-speaking { background: #ffebeb; color: var(--red); }
+
+    .question-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #3c3c3c;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    /* Audio Speaker Button */
+    .audio-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--blue);
+      border-radius: 16px;
+      border: none;
+      box-shadow: 0 4px 0 var(--blue-shadow);
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: transform 0.1s;
+    }
+    .audio-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 var(--blue-shadow);
+    }
+    .audio-btn svg {
+      fill: #ffffff;
+      width: 26px;
+      height: 26px;
+    }
+
+    /* Options Grid */
+    .options-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .option-btn {
+      background: #ffffff;
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      padding: 16px 20px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0 3px 0 var(--border-color);
+      transition: all 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .option-btn:hover {
+      background: #f7f7f7;
+    }
+    .option-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--border-color);
+    }
+    .option-btn.selected {
+      border-color: var(--blue);
+      background: #eef8fe;
+      color: var(--blue);
+      box-shadow: 0 3px 0 var(--blue-shadow);
+    }
+
+    /* Text Input Mode */
+    .text-input-box {
+      width: 100%;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: 600;
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      outline: none;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+      margin-top: 10px;
+    }
+    .text-input-box:focus {
+      border-color: var(--blue);
+    }
+
+    /* Speaking Practice Box */
+    .speaking-box {
+      background: #fcfcfc;
+      border: 2px dashed #dcdcdc;
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .mic-btn {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--red);
+      border: none;
+      box-shadow: 0 4px 0 var(--red-shadow);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 12px;
+      transition: transform 0.1s;
+    }
+    .mic-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 var(--red-shadow);
+    }
+    .mic-btn.recording {
+      animation: pulse 1.2s infinite;
+      background: #ff2222;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+    .speech-transcript {
+      margin-top: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #333;
+      min-height: 24px;
+    }
+
+    /* Bottom Action Footer */
+    footer {
+      border-top: 2px solid var(--border-color);
+      padding: 16px 20px;
+      position: sticky;
+      bottom: 0;
+      background: #ffffff;
+      width: 100%;
+    }
+    .footer-inner {
+      max-width: 650px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .check-btn {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 16px;
+      padding: 14px 36px;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 0 var(--primary-shadow);
+      transition: all 0.1s;
+      width: 100%;
+    }
+    .check-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 var(--primary-shadow);
+    }
+    .check-btn:disabled {
+      background: var(--border-color);
+      box-shadow: 0 4px 0 #d4d4d4;
+      cursor: not-allowed;
+      color: #9c9c9c;
+    }
+
+    /* Feedback Banner */
+    .feedback-banner {
+      display: none;
+      padding: 18px 24px;
+      position: fixed;
+      bottom: 78px;
+      left: 0;
+      right: 0;
+      max-width: 650px;
+      margin: 0 auto;
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 800;
+      animation: slideUp 0.2s cubic-bezier(0, 0, 0.2, 1);
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .feedback-banner.correct {
+      display: block;
+      background: #d7ffb8;
+      color: #438800;
+    }
+    .feedback-banner.incorrect {
+      display: block;
+      background: #ffdfe0;
+      color: #d32f2f;
+    }
+
+    /* Congratulation Screen */
+    .complete-box {
+      text-align: center;
+      padding: 40px 20px;
+      display: none;
+    }
+    .complete-box h1 {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .trophy {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <span>🦉</span> DuoDaily
+    </div>
+    <div class="stats">
+      <div class="stat-item streak">
+        <span>🔥</span> <span id="streak-count">1</span>
+      </div>
+      <div class="stat-item xp">
+        <span>⚡</span> <span id="xp-count">0</span> XP
+      </div>
+      <div class="stat-item hearts">
+        <span>❤️</span> <span id="heart-count">5</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Active Lesson Step -->
+    <div class="lesson-box" id="lesson-box">
+      <!-- Generated via JS -->
+    </div>
+
+    <!-- Completion Screen -->
+    <div class="complete-box" id="complete-box">
+      <div class="trophy">🏆</div>
+      <h1>Hoàn thành buổi học hôm nay!</h1>
+      <p style="font-size: 18px; color: #777; margin-bottom: 24px;">
+        Tuyệt vời! Bạn vừa hoàn thành 15 phút rèn luyện 4 kỹ năng tiếng Anh và tích lũy được <b>+40 XP</b>.
+      </p>
+      <button class="check-btn" onclick="restartLesson()">Học lại bài khác</button>
+    </div>
+  </main>
+
+  <!-- Feedback Banner -->
+  <div class="feedback-banner" id="feedback-banner"></div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <button class="check-btn" id="action-btn" onclick="checkAnswer()" disabled>KIỂM TRA</button>
+    </div>
+  </footer>
+
+  <script>
+    // 4 Chặng bài học rèn luyện 4 kỹ năng trong 10-15 phút
+    const lessonData = [
+      {
+        skill: "listening",
+        skillTitle: "Kỹ năng 1: Nghe & Từ Vựng",
+        tagClass: "tag-listening",
+        title: "Bấm vào loa để nghe và chọn từ bạn vừa nghe được:",
+        audioText: "Collaboration",
+        type: "choice",
+        options: ["Communication", "Collaboration", "Celebration", "Configuration"],
+        correct: 1,
+        meaning: "Collaboration (danh từ): Sự cộng tác, hợp tác làm việc nhóm."
+      },
+      {
+        skill: "reading",
+        skillTitle: "Kỹ năng 2: Đọc hiểu Mini",
+        tagClass: "tag-reading",
+        title: "Đọc đoạn hội thoại ngắn sau và trả lời câu hỏi:",
+        context: '"Hi Alex, the project deadline has been moved to next Friday. Please update the team dashboard today."',
+        question: "Hạn chót của dự án được dời đến khi nào?",
+        type: "choice",
+        options: ["Hôm nay", "Thứ Hai tới", "Thứ Sáu tới", "Cuối tháng"],
+        correct: 2,
+        meaning: "Deadline has been moved to next Friday = Hạn chót dời sang thứ Sáu tới."
+      },
+      {
+        skill: "writing",
+        skillTitle: "Kỹ năng 3: Viết phản hồi",
+        tagClass: "tag-writing",
+        title: "Dịch câu sau sang tiếng Anh:",
+        prompt: '"Tôi sẽ kiểm tra lại tài liệu này ngay bây giờ."',
+        type: "input",
+        correctText: "I will check this document right now",
+        accepted: [
+          "i will check this document right now",
+          "i'll check this document right now",
+          "i will review this document right now"
+        ],
+        meaning: 'Cấu trúc: I will + V_inf (Tôi sẽ làm gì đó).'
+      },
+      {
+        skill: "speaking",
+        skillTitle: "Kỹ năng 4: Nói & Phản xạ phát âm",
+        tagClass: "tag-speaking",
+        title: "Luyện phát âm câu sau (Bấm loa nghe mẫu rồi bấm Mic để nói):",
+        speechText: "Good morning, how can I help you today?",
+        type: "speaking",
+        meaning: "Câu chào hỏi giao tiếp cơ bản và thông dụng nhất nơi công sở."
+      }
+    ];
+
+    let currentStep = 0;
+    let selectedOption = null;
+    let xp = 0;
+    let hearts = 5;
+    let answered = false;
+    let recognition = null;
+
+    // Khoi tao Web Speech API
+    const synth = window.speechSynthesis;
+
+    function speakText(text) {
+      if (!synth) return;
+      synth.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'en-US';
+      utter.rate = 0.9;
+      synth.speak(utter);
+    }
+
+    function renderStep() {
+      const step = lessonData[currentStep];
+      const box = document.getElementById('lesson-box');
+      const actionBtn = document.getElementById('action-btn');
+      const banner = document.getElementById('feedback-banner');
+      
+      banner.className = 'feedback-banner';
+      banner.style.display = 'none';
+      answered = false;
+      selectedOption = null;
+      actionBtn.disabled = true;
+      actionBtn.innerText = "KIỂM TRA";
+      actionBtn.onclick = checkAnswer;
+
+      // Update progress bar
+      const progressPercent = (currentStep / lessonData.length) * 100;
+      document.getElementById('progress-fill').style.width = progressPercent + '%';
+
+      let html = `
+        <div class="skill-tag ${step.tagClass}">
+          <span>🎯</span> ${step.skillTitle}
+        </div>
+        <h2 class="question-title">${step.title}</h2>
+      `;
+
+      if (step.skill === 'listening') {
+        html += `
+          <button class="audio-btn" onclick="speakText('${step.audioText}')">
+            <svg viewBox="0 0 24 24"><path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-2 0l-5 4H3v10h4l5 4V3.23zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+          </button>
+          <div class="options-grid">
+            ${step.options.map((opt, idx) => `
+              <div class="option-btn" onclick="pickOption(${idx})">${opt}</div>
+            `).join('')}
+          </div>
+        `;
+      } else if (step.skill === 'reading') {
+        html += `
+          <div style="background:#f4f9fd; border-left:4px solid var(--blue); padding:14px 18px; border-radius:10px; font-size:18px; font-style:italic; margin-bottom:18px;">
+            ${step.context}
+          </div>
+          <div style="font-weight:800; font-size:18px; margin-bottom:12px;">${step.question}</div>
+          <div class="options-grid">
+            ${step.options.map((opt, idx) => `
+              <div class="option-btn" onclick="pickOption(${idx})">${opt}</div>
+            `).join('')}
+          </div>
+        `;
+      } else if (step.skill === 'writing') {
+        html += `
+          <div style="font-size:20px; font-weight:800; color:#222; margin-bottom:12px;">${step.prompt}</div>
+          <input type="text" id="writing-input" class="text-input-box" placeholder="Nhập câu tiếng Anh của bạn tại đây..." oninput="onInputText(this.value)">
+        `;
+      } else if (step.skill === 'speaking') {
+        html += `
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
+            <button class="audio-btn" style="margin-bottom:0;" onclick="speakText('${step.speechText}')">
+              <svg viewBox="0 0 24 24"><path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-2 0l-5 4H3v10h4l5 4V3.23z"/></svg>
+            </button>
+            <div style="font-size:20px; font-weight:800; color:var(--text);">"${step.speechText}"</div>
+          </div>
+          <div class="speaking-box">
+            <p style="color:#777; font-weight:700;">Nhấn mic và đọc to câu trên vào micro:</p>
+            <button class="mic-btn" id="mic-btn" onclick="toggleRecord()">
+              <svg viewBox="0 0 24 24" style="fill:#fff; width:30px; height:30px;"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+            </button>
+            <div class="speech-transcript" id="speech-transcript">...</div>
+          </div>
+        `;
+      }
+
+      box.innerHTML = html;
+
+      // Auto play audio neu la buoc listening
+      if (step.skill === 'listening') {
+        setTimeout(() => speakText(step.audioText), 400);
+      }
+    }
+
+    function pickOption(index) {
+      if (answered) return;
+      selectedOption = index;
+      const btns = document.querySelectorAll('.option-btn');
+      btns.forEach((b, i) => {
+        b.classList.toggle('selected', i === index);
+      });
+      document.getElementById('action-btn').disabled = false;
+    }
+
+    function onInputText(val) {
+      if (answered) return;
+      document.getElementById('action-btn').disabled = val.trim().length === 0;
+    }
+
+    function toggleRecord() {
+      const micBtn = document.getElementById('mic-btn');
+      const transcriptDiv = document.getElementById('speech-transcript');
+      
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        transcriptDiv.innerText = "Trình duyệt chưa hỗ trợ Mic. Tự động chấm đạt cho bạn!";
+        document.getElementById('action-btn').disabled = false;
+        return;
+      }
+
+      if (!recognition) {
+        recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        recognition.onstart = () => {
+          micBtn.classList.add('recording');
+          transcriptDiv.innerText = "Đang lắng nghe bạn nói...";
+        };
+
+        recognition.onresult = (event) => {
+          micBtn.classList.remove('recording');
+          const heard = event.results[0][0].transcript;
+          transcriptDiv.innerText = `Bạn nói: "${heard}"`;
+          document.getElementById('action-btn').disabled = false;
+        };
+
+        recognition.onerror = () => {
+          micBtn.classList.remove('recording');
+          transcriptDiv.innerText = "Không nhận diện được giọng nói, vui lòng thử lại!";
+          document.getElementById('action-btn').disabled = false;
+        };
+      }
+
+      try {
+        recognition.start();
+      } catch(e) {
+        recognition.stop();
+        micBtn.classList.remove('recording');
+      }
+    }
+
+    function checkAnswer() {
+      if (answered) {
+        nextStep();
+        return;
+      }
+
+      answered = true;
+      const step = lessonData[currentStep];
+      let isCorrect = false;
+
+      if (step.type === 'choice') {
+        isCorrect = selectedOption === step.correct;
+      } else if (step.type === 'input') {
+        const val = document.getElementById('writing-input').value.trim().toLowerCase().replace(/[.,!]/g, '');
+        isCorrect = step.accepted.some(acc => acc.toLowerCase() === val);
+      } else if (step.type === 'speaking') {
+        isCorrect = true; // Khuyen khich nguoi hoc phan xa
+      }
+
+      const banner = document.getElementById('feedback-banner');
+      const actionBtn = document.getElementById('action-btn');
+
+      if (isCorrect) {
+        banner.className = 'feedback-banner correct';
+        banner.innerHTML = `<div>🎉 <b>Chính xác!</b></div><div style="font-size:15px; font-weight:600; margin-top:4px;">${step.meaning}</div>`;
+        xp += 10;
+        document.getElementById('xp-count').innerText = xp;
+      } else {
+        banner.className = 'feedback-banner incorrect';
+        banner.innerHTML = `<div>❌ <b>Chưa chính xác!</b></div><div style="font-size:15px; font-weight:600; margin-top:4px;">${step.meaning}</div>`;
+        hearts = Math.max(0, hearts - 1);
+        document.getElementById('heart-count').innerText = hearts;
+      }
+
+      banner.style.display = 'block';
+      actionBtn.innerText = "TIẾP TỤC";
+      actionBtn.disabled = false;
+      actionBtn.onclick = nextStep;
+    }
+
+    function nextStep() {
+      currentStep++;
+      if (currentStep < lessonData.length) {
+        renderStep();
+      } else {
+        // Complete
+        document.getElementById('lesson-box').style.display = 'none';
+        document.getElementById('complete-box').style.display = 'block';
+        document.getElementById('feedback-banner').style.display = 'none';
+        document.getElementById('progress-fill').style.width = '100%';
+        document.getElementById('action-btn').style.display = 'none';
+      }
+    }
+
+    function restartLesson() {
+      currentStep = 0;
+      document.getElementById('lesson-box').style.display = 'flex';
+      document.getElementById('complete-box').style.display = 'none';
+      document.getElementById('action-btn').style.display = 'block';
+      renderStep();
+    }
+
+    // Start App
+    window.onload = renderStep;
+  </script>
+</body>
+</html>
