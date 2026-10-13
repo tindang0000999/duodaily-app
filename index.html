@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>DuoDaily - Học Tiếng Anh 15 Phút Mỗi Ngày</title>
+  <title>DuoDaily 2.0 - Gia Sư Tiếng Anh 15 Phút</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -16,6 +16,8 @@
       --blue-shadow: #1899d6;
       --orange: #ff9600;
       --orange-shadow: #e68700;
+      --purple: #ce82ff;
+      --purple-shadow: #a855f7;
       --red: #ff4b4b;
       --red-shadow: #ea2b2b;
       --border-color: #e5e5e5;
@@ -37,7 +39,7 @@
       min-height: 100vh;
     }
 
-    /* Màn hình Đăng nhập (Login Screen) */
+    /* Auth Screen */
     #auth-screen {
       flex: 1;
       display: flex;
@@ -45,32 +47,14 @@
       justify-content: center;
       align-items: center;
       padding: 24px;
-      max-width: 420px;
+      max-width: 440px;
       margin: 0 auto;
       width: 100%;
     }
-    .auth-logo {
-      font-size: 70px;
-      margin-bottom: 8px;
-    }
-    .auth-title {
-      font-size: 28px;
-      font-weight: 900;
-      color: var(--primary);
-      margin-bottom: 6px;
-    }
-    .auth-subtitle {
-      font-size: 15px;
-      color: #777;
-      margin-bottom: 24px;
-      text-align: center;
-    }
-    .auth-form {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
+    .auth-logo { font-size: 70px; margin-bottom: 8px; }
+    .auth-title { font-size: 30px; font-weight: 900; color: var(--primary); margin-bottom: 4px; }
+    .auth-subtitle { font-size: 15px; color: #777; margin-bottom: 24px; text-align: center; }
+    .auth-form { width: 100%; display: flex; flex-direction: column; gap: 14px; }
     .auth-input {
       width: 100%;
       padding: 14px 16px;
@@ -82,41 +66,24 @@
       outline: none;
       transition: all 0.2s;
     }
-    .auth-input:focus {
-      background: #fff;
-      border-color: var(--blue);
-    }
+    .auth-input:focus { background: #fff; border-color: var(--blue); }
     .auth-btn {
       background: var(--primary);
       color: #fff;
       border: none;
       border-radius: 16px;
-      padding: 14px;
-      font-size: 17px;
+      padding: 15px;
+      font-size: 18px;
       font-weight: 900;
       box-shadow: 0 4px 0 var(--primary-shadow);
       cursor: pointer;
       margin-top: 8px;
       transition: transform 0.1s;
     }
-    .auth-btn:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0 var(--primary-shadow);
-    }
-    .auth-note {
-      font-size: 13px;
-      color: #999;
-      text-align: center;
-      margin-top: 14px;
-      line-height: 1.4;
-    }
+    .auth-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--primary-shadow); }
 
-    /* Giao diện Học chính (App Container) */
-    #app-container {
-      display: none;
-      flex-direction: column;
-      flex: 1;
-    }
+    /* App Shell */
+    #app-container { display: none; flex-direction: column; flex: 1; }
 
     /* Header */
     header {
@@ -129,38 +96,22 @@
       margin: 0 auto;
       width: 100%;
     }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 22px;
-      font-weight: 900;
-      color: var(--primary);
-    }
-    .stats {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      font-size: 15px;
-      font-weight: 800;
-    }
-    .stat-item {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
+    .brand { font-size: 22px; font-weight: 900; color: var(--primary); display: flex; align-items: center; gap: 6px; cursor: pointer; }
+    .stats { display: flex; gap: 16px; align-items: center; font-size: 15px; font-weight: 800; }
+    .stat-item { display: flex; align-items: center; gap: 5px; }
     .streak { color: var(--orange); }
     .xp { color: var(--blue); }
-    .user-tag { 
-      background: #f0f0f0; 
-      padding: 4px 10px; 
-      border-radius: 10px; 
-      font-size: 13px; 
-      color: #555;
+    .vocab-nav {
+      background: #f0f7ff;
+      color: var(--blue);
+      padding: 6px 12px;
+      border-radius: 12px;
       cursor: pointer;
+      font-weight: 800;
+      font-size: 13px;
     }
 
-    /* Main Container */
+    /* Views */
     main {
       flex: 1;
       max-width: 650px;
@@ -171,12 +122,52 @@
       flex-direction: column;
     }
 
-    /* Progress Bar */
+    /* View: Topic Hub / Dashboard */
+    #hub-view { display: flex; flex-direction: column; gap: 18px; }
+    .section-title { font-size: 20px; font-weight: 900; color: #333; margin-top: 4px; }
+    
+    .topic-card {
+      border: 2px solid var(--border-color);
+      border-radius: 20px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 0 var(--border-color);
+      cursor: pointer;
+      transition: all 0.1s;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #fff;
+    }
+    .topic-card:hover { background: #fafafa; }
+    .topic-card:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--border-color); }
+    .topic-icon { font-size: 38px; }
+    .topic-info h3 { font-size: 18px; font-weight: 800; color: #333; }
+    .topic-info p { font-size: 14px; color: #777; font-weight: 600; margin-top: 3px; }
+    .topic-badge {
+      margin-left: auto;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 10px;
+      background: #eef8fe;
+      color: var(--blue);
+    }
+
+    /* View: Lesson Player */
+    #lesson-view { display: none; flex-direction: column; flex: 1; }
+    
     .progress-container {
       display: flex;
       align-items: center;
       gap: 15px;
       margin-bottom: 20px;
+    }
+    .back-btn {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #999;
     }
     .progress-bar {
       flex: 1;
@@ -193,12 +184,6 @@
       transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Lesson Card */
-    .lesson-box {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
     .skill-tag {
       display: inline-flex;
       align-items: center;
@@ -220,11 +205,11 @@
       font-size: 22px;
       font-weight: 800;
       color: #333;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       line-height: 1.35;
     }
 
-    /* Nút Loa Phát Âm Thanh (Audio Button) */
+    /* Audio Speaker Button */
     .audio-wrapper {
       display: flex;
       align-items: center;
@@ -249,25 +234,13 @@
       box-shadow: 0 1px 0 var(--blue-shadow);
       background: #009ce5;
     }
-    .audio-btn svg {
-      fill: #ffffff;
-      width: 30px;
-      height: 30px;
-    }
-    .audio-hint {
-      font-size: 14px;
-      color: #888;
-      font-weight: 700;
-    }
+    .audio-btn svg { fill: #fff; width: 30px; height: 30px; }
+    .audio-hint { font-size: 14px; color: #888; font-weight: 700; }
 
     /* Options Grid */
-    .options-grid {
-      display: grid;
-      gap: 12px;
-      margin-top: 8px;
-    }
+    .options-grid { display: grid; gap: 12px; margin-top: 8px; }
     .option-btn {
-      background: #ffffff;
+      background: #fff;
       border: 2px solid var(--border-color);
       border-radius: 16px;
       padding: 16px 18px;
@@ -279,10 +252,7 @@
       transition: all 0.1s;
     }
     .option-btn:hover { background: #f7f7f7; }
-    .option-btn:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 var(--border-color);
-    }
+    .option-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--border-color); }
     .option-btn.selected {
       border-color: var(--blue);
       background: #eef8fe;
@@ -290,7 +260,7 @@
       box-shadow: 0 3px 0 var(--blue-shadow);
     }
 
-    /* Text Input Box */
+    /* Input & Speaking */
     .text-input-box {
       width: 100%;
       padding: 16px;
@@ -301,11 +271,8 @@
       outline: none;
       margin-top: 10px;
     }
-    .text-input-box:focus {
-      border-color: var(--blue);
-    }
+    .text-input-box:focus { border-color: var(--blue); }
 
-    /* Speaking Box */
     .speaking-box {
       background: #fbfbfb;
       border: 2px dashed #ddd;
@@ -328,26 +295,10 @@
       margin-top: 12px;
       transition: transform 0.1s;
     }
-    .mic-btn:active {
-      transform: translateY(3px);
-      box-shadow: 0 1px 0 var(--red-shadow);
-    }
-    .mic-btn.recording {
-      animation: pulse 1.2s infinite;
-      background: #e60000;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-      100% { transform: scale(1); }
-    }
-    .speech-transcript {
-      margin-top: 14px;
-      font-size: 15px;
-      font-weight: 700;
-      color: #333;
-      min-height: 24px;
-    }
+    .mic-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--red-shadow); }
+    .mic-btn.recording { animation: pulse 1.2s infinite; background: #e60000; }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+    .speech-transcript { margin-top: 14px; font-size: 15px; font-weight: 700; color: #333; min-height: 24px; }
 
     /* Footer */
     footer {
@@ -358,13 +309,10 @@
       background: #ffffff;
       width: 100%;
     }
-    .footer-inner {
-      max-width: 650px;
-      margin: 0 auto;
-    }
+    .footer-inner { max-width: 650px; margin: 0 auto; }
     .check-btn {
       background: var(--primary);
-      color: #ffffff;
+      color: #fff;
       border: none;
       border-radius: 16px;
       padding: 14px;
@@ -375,16 +323,8 @@
       width: 100%;
       transition: all 0.1s;
     }
-    .check-btn:active {
-      transform: translateY(3px);
-      box-shadow: 0 1px 0 var(--primary-shadow);
-    }
-    .check-btn:disabled {
-      background: var(--border-color);
-      box-shadow: 0 4px 0 #d4d4d4;
-      cursor: not-allowed;
-      color: #9c9c9c;
-    }
+    .check-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--primary-shadow); }
+    .check-btn:disabled { background: var(--border-color); box-shadow: 0 4px 0 #d4d4d4; cursor: not-allowed; color: #9c9c9c; }
 
     /* Feedback Banner */
     .feedback-banner {
@@ -400,29 +340,38 @@
       font-size: 16px;
       font-weight: 800;
     }
-    .feedback-banner.correct {
-      display: block;
-      background: #d7ffb8;
-      color: #387000;
+    .feedback-banner.correct { display: block; background: #d7ffb8; color: #387000; }
+    .feedback-banner.incorrect { display: block; background: #ffdfe0; color: #d32f2f; }
+
+    /* View: Vocab Notebook */
+    #notebook-view { display: none; flex-direction: column; gap: 14px; }
+    .vocab-card {
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 0 var(--border-color);
     }
-    .feedback-banner.incorrect {
-      display: block;
-      background: #ffdfe0;
-      color: #d32f2f;
+    .vocab-word { font-size: 18px; font-weight: 900; color: var(--blue); }
+    .vocab-meaning { font-size: 14px; color: #666; font-weight: 700; margin-top: 2px; }
+    .mini-speaker {
+      background: var(--blue);
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
+    .mini-speaker svg { fill: #fff; width: 18px; height: 18px; }
 
     /* Complete Screen */
-    .complete-box {
-      text-align: center;
-      padding: 40px 16px;
-      display: none;
-    }
-    .complete-box h1 {
-      font-size: 30px;
-      font-weight: 900;
-      color: var(--primary);
-      margin-bottom: 12px;
-    }
+    .complete-box { text-align: center; padding: 36px 16px; display: none; }
+    .complete-box h1 { font-size: 28px; font-weight: 900; color: var(--primary); margin-bottom: 10px; }
     .trophy { font-size: 70px; margin-bottom: 16px; }
   </style>
 </head>
@@ -431,69 +380,116 @@
   <!-- 1. Màn hình Đăng nhập (Auth Screen) -->
   <div id="auth-screen">
     <div class="auth-logo">🦉</div>
-    <h1 class="auth-title">DuoDaily</h1>
-    <p class="auth-subtitle">15 phút tiếng Anh phản xạ mỗi ngày</p>
+    <h1 class="auth-title">DuoDaily 2.0</h1>
+    <p class="auth-subtitle">Gia sư rèn luyện 4 kỹ năng 15 phút mỗi ngày</p>
     
     <div class="auth-form">
       <input type="text" id="username" class="auth-input" placeholder="Tên đăng nhập / Email" autocomplete="off">
       <input type="password" id="password" class="auth-input" placeholder="Mật khẩu" autocomplete="off">
-      <button class="auth-btn" onclick="handleLogin()">ĐĂNG NHẬP ĐỂ HỌC</button>
+      <button class="auth-btn" onclick="handleLogin()">BẮT ĐẦU HỌC NGAY</button>
     </div>
     
-    <p class="auth-note">
-      💡 <b>Tài khoản sẵn có:</b><br>
-      User: <b>admin</b> | Mật khẩu: <b>123456</b><br>
-      <i>(Hoặc nhập bất kỳ tên & mật khẩu nào bạn muốn để tự tạo tài khoản mới!)</i>
+    <p style="font-size:13px; color:#999; text-align:center; margin-top:14px; line-height:1.5;">
+      💡 Nhập <b>admin</b> / <b>123456</b> (hoặc bất kỳ tên nào để tạo tài khoản riêng lưu Streak & XP của bạn!)
     </p>
   </div>
 
-  <!-- 2. Giao diện Ứng dụng Học (App Container) -->
+  <!-- 2. Khung Ứng Dụng Chính (App Shell) -->
   <div id="app-container">
     <!-- Header -->
     <header>
-      <div class="brand">
+      <div class="brand" onclick="showHub()">
         <span>🦉</span> DuoDaily
       </div>
       <div class="stats">
-        <div class="stat-item streak">
-          <span>🔥</span> <span id="streak-count">1</span>
-        </div>
-        <div class="stat-item xp">
-          <span>⚡</span> <span id="xp-count">0</span> XP
-        </div>
-        <div class="stat-item user-tag" onclick="logout()" title="Bấm để đăng xuất">
-          <span id="display-user">User</span> 🚪
-        </div>
+        <div class="stat-item streak"><span>🔥</span> <span id="streak-count">1</span> ngày</div>
+        <div class="stat-item xp"><span>⚡</span> <span id="xp-count">0</span> XP</div>
+        <div class="vocab-nav" onclick="showNotebook()">📖 Sổ từ</div>
+        <div class="stat-item" style="cursor:pointer;" onclick="logout()" title="Đăng xuất">🚪</div>
       </div>
     </header>
 
     <!-- Main Content -->
     <main>
-      <div class="progress-container">
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress-fill"></div>
+      
+      <!-- VIEW A: Danh mục chủ đề bài học (Lesson Hub) -->
+      <div id="hub-view">
+        <h2 class="section-title">Chọn chủ đề bài học hôm nay 🎯</h2>
+        
+        <div class="topic-card" onclick="startTopic(0)">
+          <div class="topic-icon">💻</div>
+          <div class="topic-info">
+            <h3>1. Công sở & CNTT (Workplace & IT)</h3>
+            <p>Họp nhóm, báo cáo tiến độ, từ vựng công nghệ</p>
+          </div>
+          <div class="topic-badge">15 phút</div>
+        </div>
+
+        <div class="topic-card" onclick="startTopic(1)">
+          <div class="topic-icon">☕</div>
+          <div class="topic-info">
+            <h3>2. Giao tiếp hằng ngày (Daily Chat)</h3>
+            <p>Chào hỏi, hẹn gặp, trò chuyện thường nhật</p>
+          </div>
+          <div class="topic-badge">15 phút</div>
+        </div>
+
+        <div class="topic-card" onclick="startTopic(2)">
+          <div class="topic-icon">✈️</div>
+          <div class="topic-info">
+            <h3>3. Du lịch & Nhà hàng (Travel & Dining)</h3>
+            <p>Hỏi đường, đặt phòng khách sạn, gọi món ăn</p>
+          </div>
+          <div class="topic-badge">15 phút</div>
+        </div>
+
+        <div class="topic-card" onclick="startTopic(3)">
+          <div class="topic-icon">💼</div>
+          <div class="topic-info">
+            <h3>4. Phỏng vấn & Thuyết trình (Career Pro)</h3>
+            <p>Giới thiệu bản thân, giải quyết vấn đề chuyên nghiệp</p>
+          </div>
+          <div class="topic-badge">15 phút</div>
         </div>
       </div>
 
-      <!-- Active Lesson Step -->
-      <div class="lesson-box" id="lesson-box"></div>
+      <!-- VIEW B: Trình phát bài học (Lesson Player) -->
+      <div id="lesson-view">
+        <div class="progress-container">
+          <button class="back-btn" onclick="showHub()">✕</button>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
 
-      <!-- Completion Screen -->
-      <div class="complete-box" id="complete-box">
-        <div class="trophy">🏆</div>
-        <h1>Hoàn thành bài học hôm nay!</h1>
-        <p style="font-size: 17px; color: #666; margin-bottom: 24px;">
-          Xuất sắc! Bạn vừa hoàn thành 15 phút luyện 4 kỹ năng và tích lũy được <b>+40 XP</b>.
-        </p>
-        <button class="check-btn" onclick="restartLesson()">Luyện tập lại bài này</button>
+        <div class="lesson-box" id="lesson-box"></div>
+
+        <div class="complete-box" id="complete-box">
+          <div class="trophy">🏆</div>
+          <h1>Hoàn thành xuất sắc!</h1>
+          <p style="font-size: 16px; color: #666; margin-bottom: 24px;">
+            Bạn vừa hoàn thành 15 phút luyện 4 kỹ năng và tích lũy được <b>+40 XP</b>.
+          </p>
+          <button class="check-btn" onclick="showHub()">Chọn chủ đề tiếp theo</button>
+        </div>
       </div>
+
+      <!-- VIEW C: Sổ tay từ vựng đã học (Vocab Notebook) -->
+      <div id="notebook-view">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h2 class="section-title">📖 Sổ tay từ vựng đã học</h2>
+          <button class="back-btn" onclick="showHub()" style="font-size:16px; font-weight:800; color:var(--blue);">← Quay lại</button>
+        </div>
+        <div id="vocab-list"></div>
+      </div>
+
     </main>
 
     <!-- Feedback Banner -->
     <div class="feedback-banner" id="feedback-banner"></div>
 
-    <!-- Footer -->
-    <footer>
+    <!-- Footer Action -->
+    <footer id="app-footer" style="display:none;">
       <div class="footer-inner">
         <button class="check-btn" id="action-btn" onclick="checkAnswer()" disabled>KIỂM TRA</button>
       </div>
@@ -501,98 +497,264 @@
   </div>
 
   <script>
-    // 4 Chặng bài học rèn luyện 4 kỹ năng cơ bản
-    const lessonData = [
+    // ==================== NGÂN HÀNG BÀI HỌC THEO CHỦ ĐỀ ====================
+    const topics = [
       {
-        skill: "listening",
-        skillTitle: "Kỹ năng 1: Nghe & Từ vựng",
-        tagClass: "tag-listening",
-        title: "Bấm vào nút loa để nghe và chọn từ bạn vừa nghe được:",
-        audioText: "Collaboration",
-        type: "choice",
-        options: ["Communication", "Collaboration", "Celebration", "Configuration"],
-        correct: 1,
-        meaning: "Collaboration (/kəˌlæb.əˈreɪ.ʃən/): Sự hợp tác, cộng tác làm việc."
+        id: "it",
+        title: "Công sở & CNTT",
+        lessons: [
+          {
+            skill: "listening",
+            skillTitle: "Nghe & Từ vựng",
+            tagClass: "tag-listening",
+            title: "Bấm loa nghe và chọn từ bạn vừa nghe được:",
+            audioText: "Collaboration",
+            type: "choice",
+            options: ["Communication", "Collaboration", "Celebration", "Configuration"],
+            correct: 1,
+            meaning: "Collaboration (/kəˌlæb.əˈreɪ.ʃən/): Sự hợp tác làm việc nhóm."
+          },
+          {
+            skill: "reading",
+            skillTitle: "Đọc hiểu tình huống",
+            tagClass: "tag-reading",
+            title: "Đọc tin nhắn công việc và trả lời:",
+            context: '"Hi team, the server maintenance is scheduled for tonight at 11 PM. All services will be paused for 30 minutes."',
+            question: "Bảo trì máy chủ sẽ diễn ra vào lúc mấy giờ?",
+            type: "choice",
+            options: ["11 giờ đêm nay", "9 giờ tối", "Sáng mai", "Cuối tuần"],
+            correct: 0,
+            meaning: "Tonight at 11 PM = 11 giờ đêm nay."
+          },
+          {
+            skill: "writing",
+            skillTitle: "Viết phản hồi",
+            tagClass: "tag-writing",
+            title: "Dịch câu sau sang tiếng Anh:",
+            prompt: '"Tôi đã gửi báo cáo qua email."',
+            type: "input",
+            accepted: ["i sent the report by email", "i have sent the report via email", "i sent the report via email"],
+            meaning: "I have sent the report via email (Dùng thì quá khứ đơn hoặc hiện tại hoàn thành)."
+          },
+          {
+            skill: "speaking",
+            skillTitle: "Nói & Phản xạ",
+            tagClass: "tag-speaking",
+            title: "Bấm loa nghe mẫu sau đó bấm Mic để đọc lại:",
+            speechText: "Please update the project status today.",
+            type: "speaking",
+            meaning: "Vui lòng cập nhật trạng thái dự án trong hôm nay."
+          }
+        ]
       },
       {
-        skill: "reading",
-        skillTitle: "Kỹ năng 2: Đọc hiểu Mini",
-        tagClass: "tag-reading",
-        title: "Đọc tin nhắn công việc sau và trả lời câu hỏi:",
-        context: '"Hi team, the project deadline has been moved to next Friday. Please update the dashboard today."',
-        question: "Hạn chót (deadline) của dự án được dời đến khi nào?",
-        type: "choice",
-        options: ["Hôm nay", "Thứ Hai tới", "Thứ Sáu tới", "Cuối tháng"],
-        correct: 2,
-        meaning: "Deadline has been moved to next Friday = Hạn chót đã dời sang thứ Sáu tuần tới."
+        id: "daily",
+        title: "Giao tiếp hằng ngày",
+        lessons: [
+          {
+            skill: "listening",
+            skillTitle: "Nghe & Từ vựng",
+            tagClass: "tag-listening",
+            title: "Bấm loa nghe và chọn từ đúng:",
+            audioText: "Appointment",
+            type: "choice",
+            options: ["Apartment", "Appointment", "Equipment", "Disappointment"],
+            correct: 1,
+            meaning: "Appointment (/əˈpɔɪnt.mənt/): Cuộc hẹn gặp."
+          },
+          {
+            skill: "reading",
+            skillTitle: "Đọc hiểu tình huống",
+            tagClass: "tag-reading",
+            title: "Đọc mẩu tin nhắn sau:",
+            context: '"Are you free for lunch tomorrow? There is a new Vietnamese restaurant near our office."',
+            question: "Người nhắn muốn làm gì vào ngày mai?",
+            type: "choice",
+            options: ["Ăn tối", "Uống cà phê", "Ăn trưa", "Đi xem phim"],
+            correct: 2,
+            meaning: "Free for lunch = Rảnh rỗi để ăn trưa."
+          },
+          {
+            skill: "writing",
+            skillTitle: "Viết phản hồi",
+            tagClass: "tag-writing",
+            title: "Dịch câu sau sang tiếng Anh:",
+            prompt: '"Hẹn gặp lại bạn vào ngày mai nhé."',
+            type: "input",
+            accepted: ["see you tomorrow", "see you again tomorrow", "i will see you tomorrow"],
+            meaning: "See you tomorrow! (Câu chào tạm biệt rất thông dụng)."
+          },
+          {
+            skill: "speaking",
+            skillTitle: "Nói & Phản xạ",
+            tagClass: "tag-speaking",
+            title: "Bấm loa nghe và phát âm câu sau:",
+            speechText: "Have a great day ahead!",
+            type: "speaking",
+            meaning: "Chúc bạn một ngày tuyệt vời phía trước!"
+          }
+        ]
       },
       {
-        skill: "writing",
-        skillTitle: "Kỹ năng 3: Viết phản hồi",
-        tagClass: "tag-writing",
-        title: "Dịch câu sau sang tiếng Anh:",
-        prompt: '"Tôi sẽ kiểm tra lại tài liệu này ngay bây giờ."',
-        type: "input",
-        accepted: [
-          "i will check this document right now",
-          "i'll check this document right now",
-          "i will review this document right now",
-          "i will check this document now"
-        ],
-        meaning: 'Cấu trúc tương lai đơn: I will + động từ nguyên mẫu (I will check...).'
+        id: "travel",
+        title: "Du lịch & Nhà hàng",
+        lessons: [
+          {
+            skill: "listening",
+            skillTitle: "Nghe & Từ vựng",
+            tagClass: "tag-listening",
+            title: "Bấm loa nghe và chọn từ bạn nghe được:",
+            audioText: "Reservation",
+            type: "choice",
+            options: ["Destination", "Observation", "Reservation", "Conversation"],
+            correct: 2,
+            meaning: "Reservation (/ˌrez.ɚˈveɪ.ʃən/): Đặt chỗ trước."
+          },
+          {
+            skill: "reading",
+            skillTitle: "Đọc hiểu",
+            tagClass: "tag-reading",
+            title: "Đọc đoạn hội thoại tại quầy lễ tân:",
+            context: '"Welcome to Grand Hotel. Check-in starts at 2 PM, but you can leave your luggage here."',
+            question: "Khách có thể nhận phòng (check-in) lúc mấy giờ?",
+            type: "choice",
+            options: ["12 giờ trưa", "2 giờ chiều", "5 giờ chiều", "Ngay lập tức"],
+            correct: 1,
+            meaning: "Check-in starts at 2 PM = Nhận phòng từ 2 giờ chiều."
+          },
+          {
+            skill: "writing",
+            skillTitle: "Viết phản hồi",
+            tagClass: "tag-writing",
+            title: "Dịch câu sau sang tiếng Anh:",
+            prompt: '"Làm ơn cho tôi xin hóa đơn tính tiền."',
+            type: "input",
+            accepted: ["can i have the bill please", "could i have the check please", "the bill please", "can i have the check please"],
+            meaning: "Can I have the bill, please? (Cách xin hóa đơn lịch sự)."
+          },
+          {
+            skill: "speaking",
+            skillTitle: "Nói & Phản xạ",
+            tagClass: "tag-speaking",
+            title: "Luyện phát âm câu sau:",
+            speechText: "Where is the nearest subway station?",
+            type: "speaking",
+            meaning: "Ga tàu điện ngầm gần nhất ở đâu?"
+          }
+        ]
       },
       {
-        skill: "speaking",
-        skillTitle: "Kỹ năng 4: Nói & Phản xạ",
-        tagClass: "tag-speaking",
-        title: "Bấm loa nghe mẫu câu chào hỏi sau đó bấm Mic để đọc lại:",
-        speechText: "Good morning, how can I help you today?",
-        type: "speaking",
-        meaning: "Câu mở đầu lịch thiệp và phổ biến nhất khi bắt đầu ngày làm việc."
+        id: "interview",
+        title: "Phỏng vấn & Thuyết trình",
+        lessons: [
+          {
+            skill: "listening",
+            skillTitle: "Nghe & Từ vựng",
+            tagClass: "tag-listening",
+            title: "Nghe và chọn từ chuyên môn:",
+            audioText: "Achievement",
+            type: "choice",
+            options: ["Requirement", "Achievement", "Agreement", "Management"],
+            correct: 1,
+            meaning: "Achievement (/əˈtʃiːv.mənt/): Thành tích, thành tựu đạt được."
+          },
+          {
+            skill: "reading",
+            skillTitle: "Đọc hiểu",
+            tagClass: "tag-reading",
+            title: "Đọc câu hỏi phỏng vấn:",
+            context: '"Could you describe a challenging problem you solved in your previous role?"',
+            question: "Người phỏng vấn đang hỏi về điều gì?",
+            type: "choice",
+            options: ["Mức lương mong muốn", "Một khó khăn đã từng giải quyết", "Kế hoạch 5 năm tới", "Lý do nghỉ việc"],
+            correct: 1,
+            meaning: "A challenging problem you solved = Một bài toán/vấn đề khó khăn bạn từng giải quyết."
+          },
+          {
+            skill: "writing",
+            skillTitle: "Viết phản xạ",
+            tagClass: "tag-writing",
+            title: "Dịch câu sau sang tiếng Anh:",
+            prompt: '"Tôi có 5 năm kinh nghiệm trong ngành này."',
+            type: "input",
+            accepted: ["i have 5 years of experience in this field", "i have five years of experience in this field", "i have 5 years experience in this industry"],
+            meaning: "I have 5 years of experience in this field."
+          },
+          {
+            skill: "speaking",
+            skillTitle: "Nói & Phản xạ",
+            tagClass: "tag-speaking",
+            title: "Tự tin phát âm câu mở đầu:",
+            speechText: "Thank you for giving me this opportunity today.",
+            type: "speaking",
+            meaning: "Cảm ơn quý công ty đã trao cho tôi cơ hội này hôm nay."
+          }
+        ]
       }
     ];
 
+    let currentTopicIndex = 0;
     let currentStep = 0;
     let selectedOption = null;
     let xp = 0;
+    let streak = 1;
     let answered = false;
     let recognition = null;
     let currentAudio = null;
+    let learnedVocab = JSON.parse(localStorage.getItem('duodaily_vocab') || '[]');
 
-    // ==================== CƠ CHẾ PHÁT ÂM THANH KÉP (DUAL AUDIO ENGINE) ====================
-    // Khắc phục triệt để lỗi loa không kêu trên điện thoại Safari & Chrome Mobile
+    // ==================== HIỆU ỨNG ÂM THANH WEB AUDIO SYNTH (BEEP/CHIME) ====================
+    function playBeep(isSuccess) {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (isSuccess) {
+          osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
+          osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1); // A5
+          gain.gain.setValueAtTime(0.2, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.35);
+        } else {
+          osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
+          osc.frequency.setValueAtTime(164.81, ctx.currentTime + 0.12); // E3
+          gain.gain.setValueAtTime(0.25, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.3);
+        }
+      } catch (e) {}
+    }
+
+    // ==================== CƠ CHẾ PHÁT ÂM THANH LOA (AUDIO ENGINE) ====================
     function playAudioText(text) {
       const btn = document.querySelector('.audio-btn');
       if (btn) btn.classList.add('playing');
 
-      // Giải pháp 1: Dùng Audio Element phát giọng chuẩn Google Cloud TTS (Chạy 100% trên điện thoại)
-      const encodedText = encodeURIComponent(text);
-      const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=en&client=tw-ob`;
-      
+      const encoded = encodeURIComponent(text);
+      const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encoded}&tl=en&client=tw-ob`;
+
       if (currentAudio) {
         currentAudio.pause();
         currentAudio.currentTime = 0;
       }
 
-      currentAudio = new Audio(audioUrl);
-      
-      const playPromise = currentAudio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          currentAudio.onended = () => {
-            if (btn) btn.classList.remove('playing');
-          };
-        }).catch(err => {
-          console.warn("Audio MP3 blocked, fallback sang SpeechSynthesis:", err);
-          // Giải pháp 2 (Fallback): Web Speech API
-          fallbackWebSpeech(text, btn);
-        });
+      currentAudio = new Audio(url);
+      const promise = currentAudio.play();
+      if (promise !== undefined) {
+        promise.then(() => {
+          currentAudio.onended = () => { if (btn) btn.classList.remove('playing'); };
+        }).catch(() => fallbackSpeech(text, btn));
       } else {
-        fallbackWebSpeech(text, btn);
+        fallbackSpeech(text, btn);
       }
     }
 
-    function fallbackWebSpeech(text, btn) {
+    function fallbackSpeech(text, btn) {
       if (!('speechSynthesis' in window)) {
         if (btn) btn.classList.remove('playing');
         return;
@@ -601,33 +763,21 @@
       const utter = new SpeechSynthesisUtterance(text);
       utter.lang = 'en-US';
       utter.rate = 0.85;
-      utter.onend = () => {
-        if (btn) btn.classList.remove('playing');
-      };
-      utter.onerror = () => {
-        if (btn) btn.classList.remove('playing');
-      };
+      utter.onend = () => { if (btn) btn.classList.remove('playing'); };
+      utter.onerror = () => { if (btn) btn.classList.remove('playing'); };
       window.speechSynthesis.speak(utter);
     }
 
-    // ==================== XỬ LÝ ĐĂNG NHẬP (AUTH) ====================
+    // ==================== AUTH & ROUTING ====================
     function handleLogin() {
       const u = document.getElementById('username').value.trim();
       const p = document.getElementById('password').value.trim();
+      if (!u || !p) { alert("Vui lòng nhập tên đăng nhập!"); return; }
 
-      if (!u || !p) {
-        alert("Vui lòng nhập tên đăng nhập và mật khẩu!");
-        return;
-      }
-
-      // Lưu phiên đăng nhập vào LocalStorage
       localStorage.setItem('duodaily_user', u);
-      document.getElementById('display-user').innerText = u;
-
       document.getElementById('auth-screen').style.display = 'none';
       document.getElementById('app-container').style.display = 'flex';
-
-      renderStep();
+      showHub();
     }
 
     function logout() {
@@ -638,25 +788,73 @@
       }
     }
 
-    // Tự động khôi phục đăng nhập nếu đã đăng nhập trước đó
     window.onload = () => {
-      const savedUser = localStorage.getItem('duodaily_user');
-      if (savedUser) {
-        document.getElementById('display-user').innerText = savedUser;
+      const user = localStorage.getItem('duodaily_user');
+      const savedXp = parseInt(localStorage.getItem('duodaily_xp') || '0');
+      if (savedXp) {
+        xp = savedXp;
+        document.getElementById('xp-count').innerText = xp;
+      }
+      if (user) {
         document.getElementById('auth-screen').style.display = 'none';
         document.getElementById('app-container').style.display = 'flex';
-        renderStep();
+        showHub();
       }
     };
 
-    // ==================== RENDER BÀI HỌC ====================
+    function showHub() {
+      document.getElementById('hub-view').style.display = 'flex';
+      document.getElementById('lesson-view').style.display = 'none';
+      document.getElementById('notebook-view').style.display = 'none';
+      document.getElementById('app-footer').style.display = 'none';
+      document.getElementById('feedback-banner').style.display = 'none';
+    }
+
+    function showNotebook() {
+      document.getElementById('hub-view').style.display = 'none';
+      document.getElementById('lesson-view').style.display = 'none';
+      document.getElementById('notebook-view').style.display = 'flex';
+      document.getElementById('app-footer').style.display = 'none';
+
+      const listDiv = document.getElementById('vocab-list');
+      if (learnedVocab.length === 0) {
+        listDiv.innerHTML = '<p style="color:#888; text-align:center; padding:30px;">Chưa có từ mới nào. Hãy hoàn thành bài học đầu tiên để lưu từ vựng nhé!</p>';
+        return;
+      }
+
+      listDiv.innerHTML = learnedVocab.map(v => `
+        <div class="vocab-card">
+          <div>
+            <div class="vocab-word">${v.word}</div>
+            <div class="vocab-meaning">${v.meaning}</div>
+          </div>
+          <button class="mini-speaker" onclick="playAudioText('${v.word}')">
+            <svg viewBox="0 0 24 24"><path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-2 0l-5 4H3v10h4l5 4V3.23z"/></svg>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function startTopic(idx) {
+      currentTopicIndex = idx;
+      currentStep = 0;
+      document.getElementById('hub-view').style.display = 'none';
+      document.getElementById('lesson-view').style.display = 'flex';
+      document.getElementById('complete-box').style.display = 'none';
+      document.getElementById('lesson-box').style.display = 'flex';
+      document.getElementById('app-footer').style.display = 'block';
+
+      renderStep();
+    }
+
+    // ==================== BÀI HỌC PLAYER ====================
     function renderStep() {
-      const step = lessonData[currentStep];
+      const topic = topics[currentTopicIndex];
+      const step = topic.lessons[currentStep];
       const box = document.getElementById('lesson-box');
       const actionBtn = document.getElementById('action-btn');
       const banner = document.getElementById('feedback-banner');
-      
-      banner.className = 'feedback-banner';
+
       banner.style.display = 'none';
       answered = false;
       selectedOption = null;
@@ -664,8 +862,8 @@
       actionBtn.innerText = "KIỂM TRA";
       actionBtn.onclick = checkAnswer;
 
-      const progressPercent = (currentStep / lessonData.length) * 100;
-      document.getElementById('progress-fill').style.width = progressPercent + '%';
+      const progress = (currentStep / topic.lessons.length) * 100;
+      document.getElementById('progress-fill').style.width = progress + '%';
 
       let html = `
         <div class="skill-tag ${step.tagClass}">
@@ -680,12 +878,10 @@
             <button class="audio-btn" onclick="playAudioText('${step.audioText}')">
               <svg viewBox="0 0 24 24"><path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-2 0l-5 4H3v10h4l5 4V3.23zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
             </button>
-            <span class="audio-hint">Bấm vào loa để nghe phát âm</span>
+            <span class="audio-hint">Bấm loa để nghe phát âm</span>
           </div>
           <div class="options-grid">
-            ${step.options.map((opt, idx) => `
-              <div class="option-btn" onclick="pickOption(${idx})">${opt}</div>
-            `).join('')}
+            ${step.options.map((opt, i) => `<div class="option-btn" onclick="pickOption(${i})">${opt}</div>`).join('')}
           </div>
         `;
       } else if (step.skill === 'reading') {
@@ -695,9 +891,7 @@
           </div>
           <div style="font-weight:800; font-size:17px; margin-bottom:12px;">${step.question}</div>
           <div class="options-grid">
-            ${step.options.map((opt, idx) => `
-              <div class="option-btn" onclick="pickOption(${idx})">${opt}</div>
-            `).join('')}
+            ${step.options.map((opt, i) => `<div class="option-btn" onclick="pickOption(${i})">${opt}</div>`).join('')}
           </div>
         `;
       } else if (step.skill === 'writing') {
@@ -724,13 +918,15 @@
       }
 
       box.innerHTML = html;
+      if (step.skill === 'listening') {
+        setTimeout(() => playAudioText(step.audioText), 400);
+      }
     }
 
-    function pickOption(index) {
+    function pickOption(idx) {
       if (answered) return;
-      selectedOption = index;
-      const btns = document.querySelectorAll('.option-btn');
-      btns.forEach((b, i) => b.classList.toggle('selected', i === index));
+      selectedOption = idx;
+      document.querySelectorAll('.option-btn').forEach((b, i) => b.classList.toggle('selected', i === idx));
       document.getElementById('action-btn').disabled = false;
     }
 
@@ -742,55 +938,39 @@
     function toggleRecord() {
       const micBtn = document.getElementById('mic-btn');
       const transcriptDiv = document.getElementById('speech-transcript');
-      
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRecognition) {
-        transcriptDiv.innerText = "Trình duyệt này không hỗ trợ Mic. Tự động chấm đạt cho bạn!";
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      if (!SpeechRec) {
+        transcriptDiv.innerText = "Trình duyệt không hỗ trợ Mic. Tự động chấm đạt cho bạn!";
         document.getElementById('action-btn').disabled = false;
         return;
       }
 
       if (!recognition) {
-        recognition = new SpeechRecognition();
+        recognition = new SpeechRec();
         recognition.lang = 'en-US';
-        recognition.continuous = false;
-        recognition.interimResults = false;
-
-        recognition.onstart = () => {
-          micBtn.classList.add('recording');
-          transcriptDiv.innerText = "Đang lắng nghe giọng bạn...";
-        };
-
-        recognition.onresult = (event) => {
+        recognition.onstart = () => { micBtn.classList.add('recording'); transcriptDiv.innerText = "Đang lắng nghe..."; };
+        recognition.onresult = (e) => {
           micBtn.classList.remove('recording');
-          const heard = event.results[0][0].transcript;
-          transcriptDiv.innerText = `Bạn đã đọc: "${heard}"`;
+          transcriptDiv.innerText = `Bạn đã đọc: "${e.results[0][0].transcript}"`;
           document.getElementById('action-btn').disabled = false;
         };
-
         recognition.onerror = () => {
           micBtn.classList.remove('recording');
-          transcriptDiv.innerText = "Không thu được tiếng rõ ràng, bạn có thể thử lại hoặc bấm Kiểm tra!";
+          transcriptDiv.innerText = "Không nhận diện được giọng nói, bạn có thể thử lại hoặc bấm Kiểm tra!";
           document.getElementById('action-btn').disabled = false;
         };
       }
 
-      try {
-        recognition.start();
-      } catch(e) {
-        recognition.stop();
-        micBtn.classList.remove('recording');
-      }
+      try { recognition.start(); }
+      catch (e) { recognition.stop(); micBtn.classList.remove('recording'); }
     }
 
     function checkAnswer() {
-      if (answered) {
-        nextStep();
-        return;
-      }
+      if (answered) { nextStep(); return; }
 
       answered = true;
-      const step = lessonData[currentStep];
+      const step = topics[currentTopicIndex].lessons[currentStep];
       let isCorrect = false;
 
       if (step.type === 'choice') {
@@ -802,6 +982,8 @@
         isCorrect = true;
       }
 
+      playBeep(isCorrect);
+
       const banner = document.getElementById('feedback-banner');
       const actionBtn = document.getElementById('action-btn');
 
@@ -810,6 +992,13 @@
         banner.innerHTML = `<div>🎉 <b>Chính xác!</b></div><div style="font-size:14px; font-weight:600; margin-top:4px;">${step.meaning}</div>`;
         xp += 10;
         document.getElementById('xp-count').innerText = xp;
+        localStorage.setItem('duodaily_xp', xp);
+
+        // Lưu vào sổ từ vựng
+        if (step.audioText && !learnedVocab.some(v => v.word.toLowerCase() === step.audioText.toLowerCase())) {
+          learnedVocab.push({ word: step.audioText, meaning: step.meaning });
+          localStorage.setItem('duodaily_vocab', JSON.stringify(learnedVocab));
+        }
       } else {
         banner.className = 'feedback-banner incorrect';
         banner.innerHTML = `<div>❌ <b>Chưa chính xác!</b></div><div style="font-size:14px; font-weight:600; margin-top:4px;">${step.meaning}</div>`;
@@ -823,23 +1012,16 @@
 
     function nextStep() {
       currentStep++;
-      if (currentStep < lessonData.length) {
+      const topic = topics[currentTopicIndex];
+      if (currentStep < topic.lessons.length) {
         renderStep();
       } else {
         document.getElementById('lesson-box').style.display = 'none';
         document.getElementById('complete-box').style.display = 'block';
         document.getElementById('feedback-banner').style.display = 'none';
         document.getElementById('progress-fill').style.width = '100%';
-        document.getElementById('action-btn').style.display = 'none';
+        document.getElementById('app-footer').style.display = 'none';
       }
-    }
-
-    function restartLesson() {
-      currentStep = 0;
-      document.getElementById('lesson-box').style.display = 'flex';
-      document.getElementById('complete-box').style.display = 'none';
-      document.getElementById('action-btn').style.display = 'block';
-      renderStep();
     }
   </script>
 </body>
