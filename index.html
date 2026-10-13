@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>DuoDaily - Học Tiếng Anh 15 Phút Mỗi Ngày</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,6 @@
       --orange-shadow: #e68700;
       --red: #ff4b4b;
       --red-shadow: #ea2b2b;
-      --gray-bg: #f7f7f7;
       --border-color: #e5e5e5;
       --text: #4b4b4b;
       --text-muted: #afafaf;
@@ -28,7 +27,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Nunito', sans-serif;
-      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
     body {
       background: #ffffff;
@@ -37,10 +36,92 @@
       flex-direction: column;
       min-height: 100vh;
     }
+
+    /* Màn hình Đăng nhập (Login Screen) */
+    #auth-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      max-width: 420px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .auth-logo {
+      font-size: 70px;
+      margin-bottom: 8px;
+    }
+    .auth-title {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .auth-subtitle {
+      font-size: 15px;
+      color: #777;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .auth-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .auth-input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      background: #f7f7f7;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .auth-input:focus {
+      background: #fff;
+      border-color: var(--blue);
+    }
+    .auth-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 17px;
+      font-weight: 900;
+      box-shadow: 0 4px 0 var(--primary-shadow);
+      cursor: pointer;
+      margin-top: 8px;
+      transition: transform 0.1s;
+    }
+    .auth-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--primary-shadow);
+    }
+    .auth-note {
+      font-size: 13px;
+      color: #999;
+      text-align: center;
+      margin-top: 14px;
+      line-height: 1.4;
+    }
+
+    /* Giao diện Học chính (App Container) */
+    #app-container {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+    }
+
     /* Header */
     header {
       border-bottom: 2px solid var(--border-color);
-      padding: 12px 24px;
+      padding: 12px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -51,26 +132,33 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 24px;
+      gap: 8px;
+      font-size: 22px;
       font-weight: 900;
       color: var(--primary);
     }
     .stats {
       display: flex;
-      gap: 20px;
+      gap: 16px;
       align-items: center;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
     }
     .stat-item {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
     .streak { color: var(--orange); }
     .xp { color: var(--blue); }
-    .hearts { color: var(--red); }
+    .user-tag { 
+      background: #f0f0f0; 
+      padding: 4px 10px; 
+      border-radius: 10px; 
+      font-size: 13px; 
+      color: #555;
+      cursor: pointer;
+    }
 
     /* Main Container */
     main {
@@ -78,7 +166,7 @@
       max-width: 650px;
       margin: 0 auto;
       width: 100%;
-      padding: 24px 20px;
+      padding: 20px 18px;
       display: flex;
       flex-direction: column;
     }
@@ -88,7 +176,7 @@
       display: flex;
       align-items: center;
       gap: 15px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .progress-bar {
       flex: 1;
@@ -96,7 +184,6 @@
       background: var(--border-color);
       border-radius: 20px;
       overflow: hidden;
-      position: relative;
     }
     .progress-fill {
       height: 100%;
@@ -111,7 +198,6 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
     }
     .skill-tag {
       display: inline-flex;
@@ -122,7 +208,6 @@
       padding: 6px 14px;
       border-radius: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
       margin-bottom: 12px;
       align-self: flex-start;
     }
@@ -132,63 +217,68 @@
     .tag-speaking { background: #ffebeb; color: var(--red); }
 
     .question-title {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
-      color: #3c3c3c;
-      margin-bottom: 20px;
-      line-height: 1.3;
+      color: #333;
+      margin-bottom: 18px;
+      line-height: 1.35;
     }
 
-    /* Audio Speaker Button */
+    /* Nút Loa Phát Âm Thanh (Audio Button) */
+    .audio-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
     .audio-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 50px;
-      height: 50px;
+      width: 58px;
+      height: 58px;
       background: var(--blue);
-      border-radius: 16px;
+      border-radius: 18px;
       border: none;
       box-shadow: 0 4px 0 var(--blue-shadow);
       cursor: pointer;
-      margin-bottom: 20px;
       transition: transform 0.1s;
     }
-    .audio-btn:active {
+    .audio-btn:active, .audio-btn.playing {
       transform: translateY(3px);
       box-shadow: 0 1px 0 var(--blue-shadow);
+      background: #009ce5;
     }
     .audio-btn svg {
       fill: #ffffff;
-      width: 26px;
-      height: 26px;
+      width: 30px;
+      height: 30px;
+    }
+    .audio-hint {
+      font-size: 14px;
+      color: #888;
+      font-weight: 700;
     }
 
     /* Options Grid */
     .options-grid {
       display: grid;
       gap: 12px;
-      margin-top: 10px;
+      margin-top: 8px;
     }
     .option-btn {
       background: #ffffff;
       border: 2px solid var(--border-color);
       border-radius: 16px;
-      padding: 16px 20px;
-      font-size: 18px;
+      padding: 16px 18px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--text);
       cursor: pointer;
-      text-align: left;
       box-shadow: 0 3px 0 var(--border-color);
       transition: all 0.1s;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
     }
-    .option-btn:hover {
-      background: #f7f7f7;
-    }
+    .option-btn:hover { background: #f7f7f7; }
     .option-btn:active {
       transform: translateY(2px);
       box-shadow: 0 1px 0 var(--border-color);
@@ -200,34 +290,33 @@
       box-shadow: 0 3px 0 var(--blue-shadow);
     }
 
-    /* Text Input Mode */
+    /* Text Input Box */
     .text-input-box {
       width: 100%;
       padding: 16px;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
       border: 2px solid var(--border-color);
       border-radius: 16px;
       outline: none;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
       margin-top: 10px;
     }
     .text-input-box:focus {
       border-color: var(--blue);
     }
 
-    /* Speaking Practice Box */
+    /* Speaking Box */
     .speaking-box {
-      background: #fcfcfc;
-      border: 2px dashed #dcdcdc;
+      background: #fbfbfb;
+      border: 2px dashed #ddd;
       border-radius: 20px;
       padding: 24px;
       text-align: center;
       margin-top: 10px;
     }
     .mic-btn {
-      width: 70px;
-      height: 70px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       background: var(--red);
       border: none;
@@ -245,7 +334,7 @@
     }
     .mic-btn.recording {
       animation: pulse 1.2s infinite;
-      background: #ff2222;
+      background: #e60000;
     }
     @keyframes pulse {
       0% { transform: scale(1); }
@@ -254,16 +343,16 @@
     }
     .speech-transcript {
       margin-top: 14px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       color: #333;
       min-height: 24px;
     }
 
-    /* Bottom Action Footer */
+    /* Footer */
     footer {
       border-top: 2px solid var(--border-color);
-      padding: 16px 20px;
+      padding: 14px 18px;
       position: sticky;
       bottom: 0;
       background: #ffffff;
@@ -272,22 +361,19 @@
     .footer-inner {
       max-width: 650px;
       margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
     .check-btn {
       background: var(--primary);
       color: #ffffff;
       border: none;
       border-radius: 16px;
-      padding: 14px 36px;
+      padding: 14px;
       font-size: 18px;
       font-weight: 800;
       cursor: pointer;
       box-shadow: 0 4px 0 var(--primary-shadow);
-      transition: all 0.1s;
       width: 100%;
+      transition: all 0.1s;
     }
     .check-btn:active {
       transform: translateY(3px);
@@ -303,26 +389,21 @@
     /* Feedback Banner */
     .feedback-banner {
       display: none;
-      padding: 18px 24px;
+      padding: 16px 20px;
       position: fixed;
-      bottom: 78px;
-      left: 0;
-      right: 0;
-      max-width: 650px;
+      bottom: 74px;
+      left: 12px;
+      right: 12px;
+      max-width: 626px;
       margin: 0 auto;
       border-radius: 16px;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 800;
-      animation: slideUp 0.2s cubic-bezier(0, 0, 0.2, 1);
-    }
-    @keyframes slideUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
     }
     .feedback-banner.correct {
       display: block;
       background: #d7ffb8;
-      color: #438800;
+      color: #387000;
     }
     .feedback-banner.incorrect {
       display: block;
@@ -330,103 +411,120 @@
       color: #d32f2f;
     }
 
-    /* Congratulation Screen */
+    /* Complete Screen */
     .complete-box {
       text-align: center;
-      padding: 40px 20px;
+      padding: 40px 16px;
       display: none;
     }
     .complete-box h1 {
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 900;
       color: var(--primary);
       margin-bottom: 12px;
     }
-    .trophy {
-      font-size: 80px;
-      margin-bottom: 20px;
-    }
+    .trophy { font-size: 70px; margin-bottom: 16px; }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="brand">
-      <span>🦉</span> DuoDaily
+  <!-- 1. Màn hình Đăng nhập (Auth Screen) -->
+  <div id="auth-screen">
+    <div class="auth-logo">🦉</div>
+    <h1 class="auth-title">DuoDaily</h1>
+    <p class="auth-subtitle">15 phút tiếng Anh phản xạ mỗi ngày</p>
+    
+    <div class="auth-form">
+      <input type="text" id="username" class="auth-input" placeholder="Tên đăng nhập / Email" autocomplete="off">
+      <input type="password" id="password" class="auth-input" placeholder="Mật khẩu" autocomplete="off">
+      <button class="auth-btn" onclick="handleLogin()">ĐĂNG NHẬP ĐỂ HỌC</button>
     </div>
-    <div class="stats">
-      <div class="stat-item streak">
-        <span>🔥</span> <span id="streak-count">1</span>
+    
+    <p class="auth-note">
+      💡 <b>Tài khoản sẵn có:</b><br>
+      User: <b>admin</b> | Mật khẩu: <b>123456</b><br>
+      <i>(Hoặc nhập bất kỳ tên & mật khẩu nào bạn muốn để tự tạo tài khoản mới!)</i>
+    </p>
+  </div>
+
+  <!-- 2. Giao diện Ứng dụng Học (App Container) -->
+  <div id="app-container">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <span>🦉</span> DuoDaily
       </div>
-      <div class="stat-item xp">
-        <span>⚡</span> <span id="xp-count">0</span> XP
+      <div class="stats">
+        <div class="stat-item streak">
+          <span>🔥</span> <span id="streak-count">1</span>
+        </div>
+        <div class="stat-item xp">
+          <span>⚡</span> <span id="xp-count">0</span> XP
+        </div>
+        <div class="stat-item user-tag" onclick="logout()" title="Bấm để đăng xuất">
+          <span id="display-user">User</span> 🚪
+        </div>
       </div>
-      <div class="stat-item hearts">
-        <span>❤️</span> <span id="heart-count">5</span>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
       </div>
-    </div>
-  </header>
 
-  <!-- Main Content -->
-  <main>
-    <div class="progress-container">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progress-fill"></div>
+      <!-- Active Lesson Step -->
+      <div class="lesson-box" id="lesson-box"></div>
+
+      <!-- Completion Screen -->
+      <div class="complete-box" id="complete-box">
+        <div class="trophy">🏆</div>
+        <h1>Hoàn thành bài học hôm nay!</h1>
+        <p style="font-size: 17px; color: #666; margin-bottom: 24px;">
+          Xuất sắc! Bạn vừa hoàn thành 15 phút luyện 4 kỹ năng và tích lũy được <b>+40 XP</b>.
+        </p>
+        <button class="check-btn" onclick="restartLesson()">Luyện tập lại bài này</button>
       </div>
-    </div>
+    </main>
 
-    <!-- Active Lesson Step -->
-    <div class="lesson-box" id="lesson-box">
-      <!-- Generated via JS -->
-    </div>
+    <!-- Feedback Banner -->
+    <div class="feedback-banner" id="feedback-banner"></div>
 
-    <!-- Completion Screen -->
-    <div class="complete-box" id="complete-box">
-      <div class="trophy">🏆</div>
-      <h1>Hoàn thành buổi học hôm nay!</h1>
-      <p style="font-size: 18px; color: #777; margin-bottom: 24px;">
-        Tuyệt vời! Bạn vừa hoàn thành 15 phút rèn luyện 4 kỹ năng tiếng Anh và tích lũy được <b>+40 XP</b>.
-      </p>
-      <button class="check-btn" onclick="restartLesson()">Học lại bài khác</button>
-    </div>
-  </main>
-
-  <!-- Feedback Banner -->
-  <div class="feedback-banner" id="feedback-banner"></div>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-inner">
-      <button class="check-btn" id="action-btn" onclick="checkAnswer()" disabled>KIỂM TRA</button>
-    </div>
-  </footer>
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <button class="check-btn" id="action-btn" onclick="checkAnswer()" disabled>KIỂM TRA</button>
+      </div>
+    </footer>
+  </div>
 
   <script>
-    // 4 Chặng bài học rèn luyện 4 kỹ năng trong 10-15 phút
+    // 4 Chặng bài học rèn luyện 4 kỹ năng cơ bản
     const lessonData = [
       {
         skill: "listening",
-        skillTitle: "Kỹ năng 1: Nghe & Từ Vựng",
+        skillTitle: "Kỹ năng 1: Nghe & Từ vựng",
         tagClass: "tag-listening",
-        title: "Bấm vào loa để nghe và chọn từ bạn vừa nghe được:",
+        title: "Bấm vào nút loa để nghe và chọn từ bạn vừa nghe được:",
         audioText: "Collaboration",
         type: "choice",
         options: ["Communication", "Collaboration", "Celebration", "Configuration"],
         correct: 1,
-        meaning: "Collaboration (danh từ): Sự cộng tác, hợp tác làm việc nhóm."
+        meaning: "Collaboration (/kəˌlæb.əˈreɪ.ʃən/): Sự hợp tác, cộng tác làm việc."
       },
       {
         skill: "reading",
         skillTitle: "Kỹ năng 2: Đọc hiểu Mini",
         tagClass: "tag-reading",
-        title: "Đọc đoạn hội thoại ngắn sau và trả lời câu hỏi:",
-        context: '"Hi Alex, the project deadline has been moved to next Friday. Please update the team dashboard today."',
-        question: "Hạn chót của dự án được dời đến khi nào?",
+        title: "Đọc tin nhắn công việc sau và trả lời câu hỏi:",
+        context: '"Hi team, the project deadline has been moved to next Friday. Please update the dashboard today."',
+        question: "Hạn chót (deadline) của dự án được dời đến khi nào?",
         type: "choice",
         options: ["Hôm nay", "Thứ Hai tới", "Thứ Sáu tới", "Cuối tháng"],
         correct: 2,
-        meaning: "Deadline has been moved to next Friday = Hạn chót dời sang thứ Sáu tới."
+        meaning: "Deadline has been moved to next Friday = Hạn chót đã dời sang thứ Sáu tuần tới."
       },
       {
         skill: "writing",
@@ -435,44 +533,123 @@
         title: "Dịch câu sau sang tiếng Anh:",
         prompt: '"Tôi sẽ kiểm tra lại tài liệu này ngay bây giờ."',
         type: "input",
-        correctText: "I will check this document right now",
         accepted: [
           "i will check this document right now",
           "i'll check this document right now",
-          "i will review this document right now"
+          "i will review this document right now",
+          "i will check this document now"
         ],
-        meaning: 'Cấu trúc: I will + V_inf (Tôi sẽ làm gì đó).'
+        meaning: 'Cấu trúc tương lai đơn: I will + động từ nguyên mẫu (I will check...).'
       },
       {
         skill: "speaking",
-        skillTitle: "Kỹ năng 4: Nói & Phản xạ phát âm",
+        skillTitle: "Kỹ năng 4: Nói & Phản xạ",
         tagClass: "tag-speaking",
-        title: "Luyện phát âm câu sau (Bấm loa nghe mẫu rồi bấm Mic để nói):",
+        title: "Bấm loa nghe mẫu câu chào hỏi sau đó bấm Mic để đọc lại:",
         speechText: "Good morning, how can I help you today?",
         type: "speaking",
-        meaning: "Câu chào hỏi giao tiếp cơ bản và thông dụng nhất nơi công sở."
+        meaning: "Câu mở đầu lịch thiệp và phổ biến nhất khi bắt đầu ngày làm việc."
       }
     ];
 
     let currentStep = 0;
     let selectedOption = null;
     let xp = 0;
-    let hearts = 5;
     let answered = false;
     let recognition = null;
+    let currentAudio = null;
 
-    // Khoi tao Web Speech API
-    const synth = window.speechSynthesis;
+    // ==================== CƠ CHẾ PHÁT ÂM THANH KÉP (DUAL AUDIO ENGINE) ====================
+    // Khắc phục triệt để lỗi loa không kêu trên điện thoại Safari & Chrome Mobile
+    function playAudioText(text) {
+      const btn = document.querySelector('.audio-btn');
+      if (btn) btn.classList.add('playing');
 
-    function speakText(text) {
-      if (!synth) return;
-      synth.cancel();
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'en-US';
-      utter.rate = 0.9;
-      synth.speak(utter);
+      // Giải pháp 1: Dùng Audio Element phát giọng chuẩn Google Cloud TTS (Chạy 100% trên điện thoại)
+      const encodedText = encodeURIComponent(text);
+      const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=en&client=tw-ob`;
+      
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+
+      currentAudio = new Audio(audioUrl);
+      
+      const playPromise = currentAudio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          currentAudio.onended = () => {
+            if (btn) btn.classList.remove('playing');
+          };
+        }).catch(err => {
+          console.warn("Audio MP3 blocked, fallback sang SpeechSynthesis:", err);
+          // Giải pháp 2 (Fallback): Web Speech API
+          fallbackWebSpeech(text, btn);
+        });
+      } else {
+        fallbackWebSpeech(text, btn);
+      }
     }
 
+    function fallbackWebSpeech(text, btn) {
+      if (!('speechSynthesis' in window)) {
+        if (btn) btn.classList.remove('playing');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'en-US';
+      utter.rate = 0.85;
+      utter.onend = () => {
+        if (btn) btn.classList.remove('playing');
+      };
+      utter.onerror = () => {
+        if (btn) btn.classList.remove('playing');
+      };
+      window.speechSynthesis.speak(utter);
+    }
+
+    // ==================== XỬ LÝ ĐĂNG NHẬP (AUTH) ====================
+    function handleLogin() {
+      const u = document.getElementById('username').value.trim();
+      const p = document.getElementById('password').value.trim();
+
+      if (!u || !p) {
+        alert("Vui lòng nhập tên đăng nhập và mật khẩu!");
+        return;
+      }
+
+      // Lưu phiên đăng nhập vào LocalStorage
+      localStorage.setItem('duodaily_user', u);
+      document.getElementById('display-user').innerText = u;
+
+      document.getElementById('auth-screen').style.display = 'none';
+      document.getElementById('app-container').style.display = 'flex';
+
+      renderStep();
+    }
+
+    function logout() {
+      if (confirm("Bạn có muốn đăng xuất không?")) {
+        localStorage.removeItem('duodaily_user');
+        document.getElementById('auth-screen').style.display = 'flex';
+        document.getElementById('app-container').style.display = 'none';
+      }
+    }
+
+    // Tự động khôi phục đăng nhập nếu đã đăng nhập trước đó
+    window.onload = () => {
+      const savedUser = localStorage.getItem('duodaily_user');
+      if (savedUser) {
+        document.getElementById('display-user').innerText = savedUser;
+        document.getElementById('auth-screen').style.display = 'none';
+        document.getElementById('app-container').style.display = 'flex';
+        renderStep();
+      }
+    };
+
+    // ==================== RENDER BÀI HỌC ====================
     function renderStep() {
       const step = lessonData[currentStep];
       const box = document.getElementById('lesson-box');
@@ -487,7 +664,6 @@
       actionBtn.innerText = "KIỂM TRA";
       actionBtn.onclick = checkAnswer;
 
-      // Update progress bar
       const progressPercent = (currentStep / lessonData.length) * 100;
       document.getElementById('progress-fill').style.width = progressPercent + '%';
 
@@ -500,9 +676,12 @@
 
       if (step.skill === 'listening') {
         html += `
-          <button class="audio-btn" onclick="speakText('${step.audioText}')">
-            <svg viewBox="0 0 24 24"><path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-2 0l-5 4H3v10h4l5 4V3.23zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-          </button>
+          <div class="audio-wrapper">
+            <button class="audio-btn" onclick="playAudioText('${step.audioText}')">
+              <svg viewBox="0 0 24 24"><path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-2 0l-5 4H3v10h4l5 4V3.23zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+            </button>
+            <span class="audio-hint">Bấm vào loa để nghe phát âm</span>
+          </div>
           <div class="options-grid">
             ${step.options.map((opt, idx) => `
               <div class="option-btn" onclick="pickOption(${idx})">${opt}</div>
@@ -511,10 +690,10 @@
         `;
       } else if (step.skill === 'reading') {
         html += `
-          <div style="background:#f4f9fd; border-left:4px solid var(--blue); padding:14px 18px; border-radius:10px; font-size:18px; font-style:italic; margin-bottom:18px;">
+          <div style="background:#f4f9fd; border-left:4px solid var(--blue); padding:14px 18px; border-radius:12px; font-size:17px; font-style:italic; margin-bottom:16px;">
             ${step.context}
           </div>
-          <div style="font-weight:800; font-size:18px; margin-bottom:12px;">${step.question}</div>
+          <div style="font-weight:800; font-size:17px; margin-bottom:12px;">${step.question}</div>
           <div class="options-grid">
             ${step.options.map((opt, idx) => `
               <div class="option-btn" onclick="pickOption(${idx})">${opt}</div>
@@ -523,19 +702,19 @@
         `;
       } else if (step.skill === 'writing') {
         html += `
-          <div style="font-size:20px; font-weight:800; color:#222; margin-bottom:12px;">${step.prompt}</div>
+          <div style="font-size:19px; font-weight:800; color:#222; margin-bottom:12px;">${step.prompt}</div>
           <input type="text" id="writing-input" class="text-input-box" placeholder="Nhập câu tiếng Anh của bạn tại đây..." oninput="onInputText(this.value)">
         `;
       } else if (step.skill === 'speaking') {
         html += `
-          <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
-            <button class="audio-btn" style="margin-bottom:0;" onclick="speakText('${step.speechText}')">
+          <div class="audio-wrapper">
+            <button class="audio-btn" onclick="playAudioText('${step.speechText}')">
               <svg viewBox="0 0 24 24"><path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-2 0l-5 4H3v10h4l5 4V3.23z"/></svg>
             </button>
-            <div style="font-size:20px; font-weight:800; color:var(--text);">"${step.speechText}"</div>
+            <div style="font-size:18px; font-weight:800; color:var(--text);">"${step.speechText}"</div>
           </div>
           <div class="speaking-box">
-            <p style="color:#777; font-weight:700;">Nhấn mic và đọc to câu trên vào micro:</p>
+            <p style="color:#777; font-weight:700; font-size:14px;">Bấm loa nghe mẫu trước, sau đó bấm mic để đọc lại:</p>
             <button class="mic-btn" id="mic-btn" onclick="toggleRecord()">
               <svg viewBox="0 0 24 24" style="fill:#fff; width:30px; height:30px;"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
             </button>
@@ -545,20 +724,13 @@
       }
 
       box.innerHTML = html;
-
-      // Auto play audio neu la buoc listening
-      if (step.skill === 'listening') {
-        setTimeout(() => speakText(step.audioText), 400);
-      }
     }
 
     function pickOption(index) {
       if (answered) return;
       selectedOption = index;
       const btns = document.querySelectorAll('.option-btn');
-      btns.forEach((b, i) => {
-        b.classList.toggle('selected', i === index);
-      });
+      btns.forEach((b, i) => b.classList.toggle('selected', i === index));
       document.getElementById('action-btn').disabled = false;
     }
 
@@ -573,7 +745,7 @@
       
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
-        transcriptDiv.innerText = "Trình duyệt chưa hỗ trợ Mic. Tự động chấm đạt cho bạn!";
+        transcriptDiv.innerText = "Trình duyệt này không hỗ trợ Mic. Tự động chấm đạt cho bạn!";
         document.getElementById('action-btn').disabled = false;
         return;
       }
@@ -586,19 +758,19 @@
 
         recognition.onstart = () => {
           micBtn.classList.add('recording');
-          transcriptDiv.innerText = "Đang lắng nghe bạn nói...";
+          transcriptDiv.innerText = "Đang lắng nghe giọng bạn...";
         };
 
         recognition.onresult = (event) => {
           micBtn.classList.remove('recording');
           const heard = event.results[0][0].transcript;
-          transcriptDiv.innerText = `Bạn nói: "${heard}"`;
+          transcriptDiv.innerText = `Bạn đã đọc: "${heard}"`;
           document.getElementById('action-btn').disabled = false;
         };
 
         recognition.onerror = () => {
           micBtn.classList.remove('recording');
-          transcriptDiv.innerText = "Không nhận diện được giọng nói, vui lòng thử lại!";
+          transcriptDiv.innerText = "Không thu được tiếng rõ ràng, bạn có thể thử lại hoặc bấm Kiểm tra!";
           document.getElementById('action-btn').disabled = false;
         };
       }
@@ -627,7 +799,7 @@
         const val = document.getElementById('writing-input').value.trim().toLowerCase().replace(/[.,!]/g, '');
         isCorrect = step.accepted.some(acc => acc.toLowerCase() === val);
       } else if (step.type === 'speaking') {
-        isCorrect = true; // Khuyen khich nguoi hoc phan xa
+        isCorrect = true;
       }
 
       const banner = document.getElementById('feedback-banner');
@@ -635,14 +807,12 @@
 
       if (isCorrect) {
         banner.className = 'feedback-banner correct';
-        banner.innerHTML = `<div>🎉 <b>Chính xác!</b></div><div style="font-size:15px; font-weight:600; margin-top:4px;">${step.meaning}</div>`;
+        banner.innerHTML = `<div>🎉 <b>Chính xác!</b></div><div style="font-size:14px; font-weight:600; margin-top:4px;">${step.meaning}</div>`;
         xp += 10;
         document.getElementById('xp-count').innerText = xp;
       } else {
         banner.className = 'feedback-banner incorrect';
-        banner.innerHTML = `<div>❌ <b>Chưa chính xác!</b></div><div style="font-size:15px; font-weight:600; margin-top:4px;">${step.meaning}</div>`;
-        hearts = Math.max(0, hearts - 1);
-        document.getElementById('heart-count').innerText = hearts;
+        banner.innerHTML = `<div>❌ <b>Chưa chính xác!</b></div><div style="font-size:14px; font-weight:600; margin-top:4px;">${step.meaning}</div>`;
       }
 
       banner.style.display = 'block';
@@ -656,7 +826,6 @@
       if (currentStep < lessonData.length) {
         renderStep();
       } else {
-        // Complete
         document.getElementById('lesson-box').style.display = 'none';
         document.getElementById('complete-box').style.display = 'block';
         document.getElementById('feedback-banner').style.display = 'none';
@@ -672,9 +841,6 @@
       document.getElementById('action-btn').style.display = 'block';
       renderStep();
     }
-
-    // Start App
-    window.onload = renderStep;
   </script>
 </body>
 </html>
