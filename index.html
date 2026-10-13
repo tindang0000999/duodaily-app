@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>DuoDaily 2.0 - Gia Sư Tiếng Anh 15 Phút</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,12 +16,10 @@
       --blue-shadow: #1899d6;
       --orange: #ff9600;
       --orange-shadow: #e68700;
-      --purple: #ce82ff;
-      --purple-shadow: #a855f7;
       --red: #ff4b4b;
       --red-shadow: #ea2b2b;
       --border-color: #e5e5e5;
-      --text: #4b4b4b;
+      --text: #3c3c3c;
       --text-muted: #afafaf;
     }
     * {
@@ -37,21 +35,22 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* Auth Screen */
+    /* Màn hình Đăng nhập (Auth Screen) */
     #auth-screen {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 24px;
+      padding: 24px 20px;
       max-width: 440px;
       margin: 0 auto;
       width: 100%;
     }
-    .auth-logo { font-size: 70px; margin-bottom: 8px; }
+    .auth-logo { font-size: 64px; margin-bottom: 6px; }
     .auth-title { font-size: 30px; font-weight: 900; color: var(--primary); margin-bottom: 4px; }
     .auth-subtitle { font-size: 15px; color: #777; margin-bottom: 24px; text-align: center; }
     .auth-form { width: 100%; display: flex; flex-direction: column; gap: 14px; }
@@ -83,95 +82,124 @@
     .auth-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--primary-shadow); }
 
     /* App Shell */
-    #app-container { display: none; flex-direction: column; flex: 1; }
+    #app-container { display: none; flex-direction: column; flex: 1; width: 100%; }
 
-    /* Header */
+    /* Header chuẩn Mobile */
     header {
       border-bottom: 2px solid var(--border-color);
-      padding: 12px 20px;
+      padding: 10px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 900px;
-      margin: 0 auto;
       width: 100%;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
-    .brand { font-size: 22px; font-weight: 900; color: var(--primary); display: flex; align-items: center; gap: 6px; cursor: pointer; }
-    .stats { display: flex; gap: 16px; align-items: center; font-size: 15px; font-weight: 800; }
-    .stat-item { display: flex; align-items: center; gap: 5px; }
+    .brand { 
+      font-size: 20px; 
+      font-weight: 900; 
+      color: var(--primary); 
+      display: flex; 
+      align-items: center; 
+      gap: 5px; 
+      cursor: pointer; 
+      white-space: nowrap;
+    }
+    .stats { 
+      display: flex; 
+      gap: 12px; 
+      align-items: center; 
+      font-size: 14px; 
+      font-weight: 800; 
+      flex-wrap: nowrap;
+    }
+    .stat-item { display: flex; align-items: center; gap: 4px; white-space: nowrap; }
     .streak { color: var(--orange); }
     .xp { color: var(--blue); }
     .vocab-nav {
       background: #f0f7ff;
       color: var(--blue);
-      padding: 6px 12px;
-      border-radius: 12px;
+      padding: 5px 10px;
+      border-radius: 10px;
       cursor: pointer;
       font-weight: 800;
-      font-size: 13px;
+      font-size: 12px;
+      white-space: nowrap;
     }
 
-    /* Views */
+    /* Main Container chuẩn 100% Mobile Full Width */
     main {
       flex: 1;
-      max-width: 650px;
-      margin: 0 auto;
       width: 100%;
-      padding: 20px 18px;
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 16px;
       display: flex;
       flex-direction: column;
     }
 
-    /* View: Topic Hub / Dashboard */
-    #hub-view { display: flex; flex-direction: column; gap: 18px; }
-    .section-title { font-size: 20px; font-weight: 900; color: #333; margin-top: 4px; }
+    /* View: Topic Hub */
+    #hub-view { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+    .section-title { font-size: 20px; font-weight: 900; color: #222; margin-bottom: 4px; }
     
     .topic-card {
       border: 2px solid var(--border-color);
-      border-radius: 20px;
-      padding: 18px 20px;
+      border-radius: 18px;
+      padding: 16px;
       box-shadow: 0 4px 0 var(--border-color);
       cursor: pointer;
       transition: all 0.1s;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       background: #fff;
+      width: 100%;
     }
     .topic-card:hover { background: #fafafa; }
     .topic-card:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--border-color); }
-    .topic-icon { font-size: 38px; }
-    .topic-info h3 { font-size: 18px; font-weight: 800; color: #333; }
-    .topic-info p { font-size: 14px; color: #777; font-weight: 600; margin-top: 3px; }
+    .topic-icon { font-size: 34px; flex-shrink: 0; }
+    .topic-info { flex: 1; min-width: 0; }
+    .topic-info h3 { font-size: 17px; font-weight: 800; color: #333; }
+    .topic-info p { font-size: 13px; color: #777; font-weight: 600; margin-top: 2px; }
     .topic-badge {
-      margin-left: auto;
       font-size: 12px;
       font-weight: 800;
-      padding: 5px 10px;
-      border-radius: 10px;
+      padding: 4px 8px;
+      border-radius: 8px;
       background: #eef8fe;
       color: var(--blue);
+      flex-shrink: 0;
     }
 
-    /* View: Lesson Player */
-    #lesson-view { display: none; flex-direction: column; flex: 1; }
+    /* View: Lesson Player (Bố cục dọc 100% chống co chữ) */
+    #lesson-view { 
+      display: none; 
+      flex-direction: column; 
+      flex: 1; 
+      width: 100%; 
+    }
     
     .progress-container {
       display: flex;
       align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 16px;
+      width: 100%;
     }
     .back-btn {
       background: none;
       border: none;
       font-size: 22px;
       cursor: pointer;
-      color: #999;
+      color: #aaa;
+      padding: 4px 8px;
+      line-height: 1;
     }
     .progress-bar {
       flex: 1;
-      height: 16px;
+      height: 14px;
       background: var(--border-color);
       border-radius: 20px;
       overflow: hidden;
@@ -184,14 +212,22 @@
       transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    /* Lesson Content Box - Luôn dàn đều chiều ngang */
+    .lesson-box {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      flex: 1;
+    }
+
     .skill-tag {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 13px;
+      gap: 5px;
+      font-size: 12px;
       font-weight: 800;
-      padding: 6px 14px;
-      border-radius: 12px;
+      padding: 5px 12px;
+      border-radius: 10px;
       text-transform: uppercase;
       margin-bottom: 12px;
       align-self: flex-start;
@@ -201,32 +237,37 @@
     .tag-writing { background: #fff4e5; color: var(--orange); }
     .tag-speaking { background: #ffebeb; color: var(--red); }
 
+    /* Tiêu đề câu hỏi full 100% dòng, không bị ép ngang */
     .question-title {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 800;
-      color: #333;
+      color: #2b2b2b;
       margin-bottom: 16px;
-      line-height: 1.35;
+      line-height: 1.4;
+      width: 100%;
+      display: block;
     }
 
-    /* Audio Speaker Button */
+    /* Loa phát âm */
     .audio-wrapper {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
+      width: 100%;
     }
     .audio-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 58px;
-      height: 58px;
+      width: 54px;
+      height: 54px;
       background: var(--blue);
-      border-radius: 18px;
+      border-radius: 16px;
       border: none;
       box-shadow: 0 4px 0 var(--blue-shadow);
       cursor: pointer;
+      flex-shrink: 0;
       transition: transform 0.1s;
     }
     .audio-btn:active, .audio-btn.playing {
@@ -234,24 +275,32 @@
       box-shadow: 0 1px 0 var(--blue-shadow);
       background: #009ce5;
     }
-    .audio-btn svg { fill: #fff; width: 30px; height: 30px; }
-    .audio-hint { font-size: 14px; color: #888; font-weight: 700; }
+    .audio-btn svg { fill: #fff; width: 28px; height: 28px; }
+    .audio-hint { font-size: 14px; color: #777; font-weight: 700; }
 
-    /* Options Grid */
-    .options-grid { display: grid; gap: 12px; margin-top: 8px; }
+    /* Danh sách đáp án dạng cột 100% độ rộng (Full Width Stack) */
+    .options-grid { 
+      display: flex;
+      flex-direction: column;
+      gap: 10px; 
+      width: 100%;
+      margin-top: 6px;
+    }
     .option-btn {
       background: #fff;
       border: 2px solid var(--border-color);
       border-radius: 16px;
-      padding: 16px 18px;
-      font-size: 17px;
+      padding: 14px 16px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--text);
       cursor: pointer;
       box-shadow: 0 3px 0 var(--border-color);
       transition: all 0.1s;
+      width: 100%;
+      text-align: left;
     }
-    .option-btn:hover { background: #f7f7f7; }
+    .option-btn:hover { background: #fafafa; }
     .option-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--border-color); }
     .option-btn.selected {
       border-color: var(--blue);
@@ -260,30 +309,45 @@
       box-shadow: 0 3px 0 var(--blue-shadow);
     }
 
-    /* Input & Speaking */
+    /* Reading Box */
+    .reading-context {
+      background: #f4f9fd;
+      border-left: 4px solid var(--blue);
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-style: italic;
+      margin-bottom: 14px;
+      line-height: 1.45;
+      width: 100%;
+    }
+
+    /* Text Input Box */
     .text-input-box {
       width: 100%;
-      padding: 16px;
-      font-size: 17px;
+      padding: 14px 16px;
+      font-size: 16px;
       font-weight: 600;
       border: 2px solid var(--border-color);
       border-radius: 16px;
       outline: none;
-      margin-top: 10px;
+      margin-top: 8px;
     }
     .text-input-box:focus { border-color: var(--blue); }
 
+    /* Speaking Box */
     .speaking-box {
       background: #fbfbfb;
       border: 2px dashed #ddd;
-      border-radius: 20px;
-      padding: 24px;
+      border-radius: 18px;
+      padding: 20px 16px;
       text-align: center;
-      margin-top: 10px;
+      margin-top: 8px;
+      width: 100%;
     }
     .mic-btn {
-      width: 72px;
-      height: 72px;
+      width: 66px;
+      height: 66px;
       border-radius: 50%;
       background: var(--red);
       border: none;
@@ -292,36 +356,38 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-top: 12px;
+      margin-top: 10px;
       transition: transform 0.1s;
     }
     .mic-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--red-shadow); }
     .mic-btn.recording { animation: pulse 1.2s infinite; background: #e60000; }
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
-    .speech-transcript { margin-top: 14px; font-size: 15px; font-weight: 700; color: #333; min-height: 24px; }
+    .speech-transcript { margin-top: 12px; font-size: 14px; font-weight: 700; color: #333; min-height: 22px; }
 
-    /* Footer */
+    /* Sticky Footer */
     footer {
       border-top: 2px solid var(--border-color);
-      padding: 14px 18px;
+      padding: 12px 16px;
       position: sticky;
       bottom: 0;
       background: #ffffff;
       width: 100%;
+      z-index: 10;
     }
-    .footer-inner { max-width: 650px; margin: 0 auto; }
+    .footer-inner { max-width: 580px; margin: 0 auto; width: 100%; }
     .check-btn {
       background: var(--primary);
       color: #fff;
       border: none;
       border-radius: 16px;
       padding: 14px;
-      font-size: 18px;
-      font-weight: 800;
+      font-size: 17px;
+      font-weight: 900;
       cursor: pointer;
       box-shadow: 0 4px 0 var(--primary-shadow);
       width: 100%;
       transition: all 0.1s;
+      letter-spacing: 0.5px;
     }
     .check-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--primary-shadow); }
     .check-btn:disabled { background: var(--border-color); box-shadow: 0 4px 0 #d4d4d4; cursor: not-allowed; color: #9c9c9c; }
@@ -329,50 +395,53 @@
     /* Feedback Banner */
     .feedback-banner {
       display: none;
-      padding: 16px 20px;
+      padding: 14px 16px;
       position: fixed;
       bottom: 74px;
       left: 12px;
       right: 12px;
-      max-width: 626px;
+      max-width: 556px;
       margin: 0 auto;
       border-radius: 16px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
+      z-index: 20;
     }
-    .feedback-banner.correct { display: block; background: #d7ffb8; color: #387000; }
-    .feedback-banner.incorrect { display: block; background: #ffdfe0; color: #d32f2f; }
+    .feedback-banner.correct { display: block; background: #d7ffb8; color: #387000; border: 2px solid #b8f28b; }
+    .feedback-banner.incorrect { display: block; background: #ffdfe0; color: #d32f2f; border: 2px solid #ffbebe; }
 
-    /* View: Vocab Notebook */
-    #notebook-view { display: none; flex-direction: column; gap: 14px; }
+    /* View: Sổ từ vựng */
+    #notebook-view { display: none; flex-direction: column; gap: 12px; width: 100%; }
     .vocab-card {
       border: 2px solid var(--border-color);
       border-radius: 16px;
-      padding: 14px 18px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       box-shadow: 0 2px 0 var(--border-color);
+      width: 100%;
     }
-    .vocab-word { font-size: 18px; font-weight: 900; color: var(--blue); }
-    .vocab-meaning { font-size: 14px; color: #666; font-weight: 700; margin-top: 2px; }
+    .vocab-word { font-size: 17px; font-weight: 900; color: var(--blue); }
+    .vocab-meaning { font-size: 13px; color: #666; font-weight: 700; margin-top: 2px; }
     .mini-speaker {
       background: var(--blue);
       border: none;
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
     .mini-speaker svg { fill: #fff; width: 18px; height: 18px; }
 
     /* Complete Screen */
-    .complete-box { text-align: center; padding: 36px 16px; display: none; }
-    .complete-box h1 { font-size: 28px; font-weight: 900; color: var(--primary); margin-bottom: 10px; }
-    .trophy { font-size: 70px; margin-bottom: 16px; }
+    .complete-box { text-align: center; padding: 32px 16px; display: none; width: 100%; }
+    .complete-box h1 { font-size: 26px; font-weight: 900; color: var(--primary); margin-bottom: 10px; }
+    .trophy { font-size: 64px; margin-bottom: 14px; }
   </style>
 </head>
 <body>
@@ -389,8 +458,9 @@
       <button class="auth-btn" onclick="handleLogin()">BẮT ĐẦU HỌC NGAY</button>
     </div>
     
-    <p style="font-size:13px; color:#999; text-align:center; margin-top:14px; line-height:1.5;">
-      💡 Nhập <b>admin</b> / <b>123456</b> (hoặc bất kỳ tên nào để tạo tài khoản riêng lưu Streak & XP của bạn!)
+    <p style="font-size:13px; color:#888; text-align:center; margin-top:14px; line-height:1.5;">
+      💡 Tài khoản mẫu: <b>admin</b> / <b>123456</b><br>
+      <i>(Hoặc nhập bất kỳ tên nào để tự tạo hồ sơ riêng lưu tiến trình học của bạn)</i>
     </p>
   </div>
 
@@ -402,7 +472,7 @@
         <span>🦉</span> DuoDaily
       </div>
       <div class="stats">
-        <div class="stat-item streak"><span>🔥</span> <span id="streak-count">1</span> ngày</div>
+        <div class="stat-item streak"><span>🔥</span> <span id="streak-count">1</span></div>
         <div class="stat-item xp"><span>⚡</span> <span id="xp-count">0</span> XP</div>
         <div class="vocab-nav" onclick="showNotebook()">📖 Sổ từ</div>
         <div class="stat-item" style="cursor:pointer;" onclick="logout()" title="Đăng xuất">🚪</div>
@@ -420,7 +490,7 @@
           <div class="topic-icon">💻</div>
           <div class="topic-info">
             <h3>1. Công sở & CNTT (Workplace & IT)</h3>
-            <p>Họp nhóm, báo cáo tiến độ, từ vựng công nghệ</p>
+            <p>Họp nhóm, bảo trì máy chủ, báo cáo tiến độ</p>
           </div>
           <div class="topic-badge">15 phút</div>
         </div>
@@ -467,7 +537,7 @@
         <div class="complete-box" id="complete-box">
           <div class="trophy">🏆</div>
           <h1>Hoàn thành xuất sắc!</h1>
-          <p style="font-size: 16px; color: #666; margin-bottom: 24px;">
+          <p style="font-size: 15px; color: #666; margin-bottom: 24px;">
             Bạn vừa hoàn thành 15 phút luyện 4 kỹ năng và tích lũy được <b>+40 XP</b>.
           </p>
           <button class="check-btn" onclick="showHub()">Chọn chủ đề tiếp theo</button>
@@ -477,10 +547,10 @@
       <!-- VIEW C: Sổ tay từ vựng đã học (Vocab Notebook) -->
       <div id="notebook-view">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <h2 class="section-title">📖 Sổ tay từ vựng đã học</h2>
-          <button class="back-btn" onclick="showHub()" style="font-size:16px; font-weight:800; color:var(--blue);">← Quay lại</button>
+          <h2 class="section-title">📖 Sổ tay từ vựng</h2>
+          <button class="back-btn" onclick="showHub()" style="font-size:15px; font-weight:800; color:var(--blue);">← Quay lại</button>
         </div>
-        <div id="vocab-list"></div>
+        <div id="vocab-list" style="display:flex; flex-direction:column; gap:10px;"></div>
       </div>
 
     </main>
@@ -497,7 +567,7 @@
   </div>
 
   <script>
-    // ==================== NGÂN HÀNG BÀI HỌC THEO CHỦ ĐỀ ====================
+    // ==================== BỘ DỮ LIỆU BÀI HỌC ====================
     const topics = [
       {
         id: "it",
@@ -507,7 +577,7 @@
             skill: "listening",
             skillTitle: "Nghe & Từ vựng",
             tagClass: "tag-listening",
-            title: "Bấm loa nghe và chọn từ bạn vừa nghe được:",
+            title: "Bấm vào nút loa để nghe và chọn từ đúng:",
             audioText: "Collaboration",
             type: "choice",
             options: ["Communication", "Collaboration", "Celebration", "Configuration"],
@@ -518,7 +588,7 @@
             skill: "reading",
             skillTitle: "Đọc hiểu tình huống",
             tagClass: "tag-reading",
-            title: "Đọc tin nhắn công việc và trả lời:",
+            title: "Đọc tin nhắn công việc và trả lời câu hỏi:",
             context: '"Hi team, the server maintenance is scheduled for tonight at 11 PM. All services will be paused for 30 minutes."',
             question: "Bảo trì máy chủ sẽ diễn ra vào lúc mấy giờ?",
             type: "choice",
@@ -533,8 +603,8 @@
             title: "Dịch câu sau sang tiếng Anh:",
             prompt: '"Tôi đã gửi báo cáo qua email."',
             type: "input",
-            accepted: ["i sent the report by email", "i have sent the report via email", "i sent the report via email"],
-            meaning: "I have sent the report via email (Dùng thì quá khứ đơn hoặc hiện tại hoàn thành)."
+            accepted: ["i sent the report by email", "i have sent the report via email", "i sent the report via email", "i have sent the report by email"],
+            meaning: "I have sent the report via email (Quá khứ đơn hoặc hiện tại hoàn thành)."
           },
           {
             skill: "speaking",
@@ -555,7 +625,7 @@
             skill: "listening",
             skillTitle: "Nghe & Từ vựng",
             tagClass: "tag-listening",
-            title: "Bấm loa nghe và chọn từ đúng:",
+            title: "Bấm loa nghe và chọn từ bạn nghe được:",
             audioText: "Appointment",
             type: "choice",
             options: ["Apartment", "Appointment", "Equipment", "Disappointment"],
@@ -566,7 +636,7 @@
             skill: "reading",
             skillTitle: "Đọc hiểu tình huống",
             tagClass: "tag-reading",
-            title: "Đọc mẩu tin nhắn sau:",
+            title: "Đọc tin nhắn rủ ăn trưa:",
             context: '"Are you free for lunch tomorrow? There is a new Vietnamese restaurant near our office."',
             question: "Người nhắn muốn làm gì vào ngày mai?",
             type: "choice",
@@ -603,7 +673,7 @@
             skill: "listening",
             skillTitle: "Nghe & Từ vựng",
             tagClass: "tag-listening",
-            title: "Bấm loa nghe và chọn từ bạn nghe được:",
+            title: "Bấm loa nghe và chọn từ đúng:",
             audioText: "Reservation",
             type: "choice",
             options: ["Destination", "Observation", "Reservation", "Conversation"],
@@ -668,7 +738,7 @@
             type: "choice",
             options: ["Mức lương mong muốn", "Một khó khăn đã từng giải quyết", "Kế hoạch 5 năm tới", "Lý do nghỉ việc"],
             correct: 1,
-            meaning: "A challenging problem you solved = Một bài toán/vấn đề khó khăn bạn từng giải quyết."
+            meaning: "A challenging problem you solved = Một bài toán khó bạn từng giải quyết."
           },
           {
             skill: "writing",
@@ -697,13 +767,12 @@
     let currentStep = 0;
     let selectedOption = null;
     let xp = 0;
-    let streak = 1;
     let answered = false;
     let recognition = null;
     let currentAudio = null;
     let learnedVocab = JSON.parse(localStorage.getItem('duodaily_vocab') || '[]');
 
-    // ==================== HIỆU ỨNG ÂM THANH WEB AUDIO SYNTH (BEEP/CHIME) ====================
+    // ==================== ÂM THANH BEEP (WEB AUDIO) ====================
     function playBeep(isSuccess) {
       try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -713,15 +782,15 @@
         gain.connect(ctx.destination);
 
         if (isSuccess) {
-          osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
-          osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1); // A5
+          osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+          osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
           gain.gain.setValueAtTime(0.2, ctx.currentTime);
           gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
           osc.start();
           osc.stop(ctx.currentTime + 0.35);
         } else {
-          osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
-          osc.frequency.setValueAtTime(164.81, ctx.currentTime + 0.12); // E3
+          osc.frequency.setValueAtTime(220, ctx.currentTime);
+          osc.frequency.setValueAtTime(164.81, ctx.currentTime + 0.12);
           gain.gain.setValueAtTime(0.25, ctx.currentTime);
           gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
           osc.start();
@@ -730,7 +799,7 @@
       } catch (e) {}
     }
 
-    // ==================== CƠ CHẾ PHÁT ÂM THANH LOA (AUDIO ENGINE) ====================
+    // ==================== CƠ CHẾ PHÁT ÂM THANH LOA ====================
     function playAudioText(text) {
       const btn = document.querySelector('.audio-btn');
       if (btn) btn.classList.add('playing');
@@ -818,13 +887,13 @@
 
       const listDiv = document.getElementById('vocab-list');
       if (learnedVocab.length === 0) {
-        listDiv.innerHTML = '<p style="color:#888; text-align:center; padding:30px;">Chưa có từ mới nào. Hãy hoàn thành bài học đầu tiên để lưu từ vựng nhé!</p>';
+        listDiv.innerHTML = '<p style="color:#888; text-align:center; padding:30px; font-weight:700;">Chưa có từ mới nào. Hãy làm bài tập để tự động tích lũy từ vựng nhé!</p>';
         return;
       }
 
       listDiv.innerHTML = learnedVocab.map(v => `
         <div class="vocab-card">
-          <div>
+          <div style="flex:1; padding-right:10px;">
             <div class="vocab-word">${v.word}</div>
             <div class="vocab-meaning">${v.meaning}</div>
           </div>
@@ -886,17 +955,17 @@
         `;
       } else if (step.skill === 'reading') {
         html += `
-          <div style="background:#f4f9fd; border-left:4px solid var(--blue); padding:14px 18px; border-radius:12px; font-size:17px; font-style:italic; margin-bottom:16px;">
+          <div class="reading-context">
             ${step.context}
           </div>
-          <div style="font-weight:800; font-size:17px; margin-bottom:12px;">${step.question}</div>
+          <div style="font-weight:800; font-size:16px; margin-bottom:12px; color:#222;">${step.question}</div>
           <div class="options-grid">
             ${step.options.map((opt, i) => `<div class="option-btn" onclick="pickOption(${i})">${opt}</div>`).join('')}
           </div>
         `;
       } else if (step.skill === 'writing') {
         html += `
-          <div style="font-size:19px; font-weight:800; color:#222; margin-bottom:12px;">${step.prompt}</div>
+          <div style="font-size:18px; font-weight:800; color:#222; margin-bottom:10px;">${step.prompt}</div>
           <input type="text" id="writing-input" class="text-input-box" placeholder="Nhập câu tiếng Anh của bạn tại đây..." oninput="onInputText(this.value)">
         `;
       } else if (step.skill === 'speaking') {
@@ -905,7 +974,7 @@
             <button class="audio-btn" onclick="playAudioText('${step.speechText}')">
               <svg viewBox="0 0 24 24"><path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-2 0l-5 4H3v10h4l5 4V3.23z"/></svg>
             </button>
-            <div style="font-size:18px; font-weight:800; color:var(--text);">"${step.speechText}"</div>
+            <div style="font-size:17px; font-weight:800; color:var(--text); line-height:1.35;">"${step.speechText}"</div>
           </div>
           <div class="speaking-box">
             <p style="color:#777; font-weight:700; font-size:14px;">Bấm loa nghe mẫu trước, sau đó bấm mic để đọc lại:</p>
@@ -994,7 +1063,6 @@
         document.getElementById('xp-count').innerText = xp;
         localStorage.setItem('duodaily_xp', xp);
 
-        // Lưu vào sổ từ vựng
         if (step.audioText && !learnedVocab.some(v => v.word.toLowerCase() === step.audioText.toLowerCase())) {
           learnedVocab.push({ word: step.audioText, meaning: step.meaning });
           localStorage.setItem('duodaily_vocab', JSON.stringify(learnedVocab));
